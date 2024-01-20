@@ -7,11 +7,17 @@ const Player = (name) => {
 
     let turns = 0
 
-    const getName = () => name
+    let playerName = name
+
+    const getName = () => playerName
+
+    const setName = (newName) => { 
+        playerName = newName
+    }
 
     const getTurn = () => turns
 
-    const isEmpty = (x, y) => board.board[x][y] === 'x'
+    const isEmpty = (x, y) => board.board[x][y] === 'x' 
 
     const random = () => Math.floor(Math.random() * (9 + 1))
 
@@ -43,7 +49,7 @@ const Player = (name) => {
 
 
     return {
-        play, getTurn, getName
+        play, getTurn, getName, setName
     }
 }
 
