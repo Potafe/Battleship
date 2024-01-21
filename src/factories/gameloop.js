@@ -1,6 +1,6 @@
 import Player from "./player"
 
-const gameloop = () => {
+const gameloop = (() => {
 
     const initializeGame = () => {
         const player = Player('Captain')
@@ -20,7 +20,7 @@ const gameloop = () => {
     const setPlayerName = (name = 'Captain') => getState().getPlayer().setName(name)
 
 
-    return { state, getState, setPlayerName }
-}
+    return { initializeGame, state, getState, setPlayerName }
+})()
 
 export default gameloop
