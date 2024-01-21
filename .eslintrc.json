@@ -1,13 +1,20 @@
 {
   "env": {
     "browser": true,
-    "commonjs": true,
     "es2021": true,
     "jest": true
   },
   "extends": ["airbnb-base", "prettier"],
+  "overrides": [],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-  "rules": {}
+  "rules": {
+    "no-plusplus": "off",
+    "no-param-reassign": "off",
+    "no-console": "off",
+    "no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+  }
 }
