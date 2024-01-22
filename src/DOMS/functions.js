@@ -4,6 +4,11 @@ const functions = (() => {
    
     const BOARD_SIZE = 10
 
+    const deleteContent = () => {
+        const app = document.getElementById('app')
+        app.replaceChildren('')
+    }
+
     const loadCoordinates = (container, orientation) => {
 
         if (orientation === 'X') {
@@ -70,7 +75,7 @@ const functions = (() => {
         container.appendChild(board)
     }
 
-    return  { loadBoard }
-}) 
+    return  { deleteContent, loadBoard }
+})()
 
 export default functions

@@ -1,17 +1,13 @@
 import start from "./start";
 import battle from "./battle";
 import Gameloop from '../factories/gameloop';
+import functions from "./functions";
 
 const page = (() => {
     const game = Gameloop.initializeGame()
 
-    const deleteContent = () => {
-        const app = document.getElementById('app')
-        app.replaceChildren('')
-    }
-
     const loadBattle = () => {
-        deleteContent()
+        functions.deleteContent()
         battle.loadBoardsSection()
     }
 
