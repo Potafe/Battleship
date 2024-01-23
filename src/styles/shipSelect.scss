@@ -9,7 +9,6 @@
   .ship-card {
     height: 6rem;
     position: relative;
-    background: transparent;
     user-select: none;
     white-space: nowrap;
     transition: all 0.05s linear;
@@ -39,7 +38,7 @@
   content: "";
   z-index: 2;
   position: absolute;
-  background: rgba(0, 0, 0, 1);
+  background: rgb(255, 255, 255);
   transition: all 0.2s linear;
 }
 
