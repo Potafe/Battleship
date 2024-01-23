@@ -1,28 +1,28 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: './src/main.js',
+  entry: "./src/main.js",
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: "./src/index.html",
     }),
   ],
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
-    assetModuleFilename: 'img/[name][hash][ext][query]',
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist"),
+    assetModuleFilename: "img/[name][hash][ext][query]",
     clean: true,
   },
   optimization: {
-    runtimeChunk: 'single',
+    runtimeChunk: "single",
     splitChunks: {
-      chunks: 'all',
+      chunks: "all",
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
+          name: "vendors",
+          chunks: "all",
         },
       },
     },
@@ -31,22 +31,22 @@ module.exports = {
     rules: [
       {
         test: /.(png|svg|jpg|jpeg|gif|mp3)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
       {
         test: /.html$/i,
-        loader: 'html-loader',
+        loader: "html-loader",
       },
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: [['@babel/preset-env', { targets: 'defaults' }]],
+            presets: [["@babel/preset-env", { targets: "defaults" }]],
           },
         },
       },
     ],
   },
-}
+};

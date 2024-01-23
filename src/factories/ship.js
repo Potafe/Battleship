@@ -1,35 +1,44 @@
 const Ship = (name, length) => {
-  
   let isSunk = false;
   let hits = 0;
-  let isFound = false
+  let isFound = false;
 
-  const getName = () => name
+  const getName = () => name;
 
-  const getLength = () => length
+  const getLength = () => length;
 
   const gotFound = () => {
-    isFound = true
-  }
+    isFound = true;
+  };
 
-  const found = () => isFound
+  const found = () => isFound;
 
-  const getHits = () => hits
+  const getHits = () => hits;
 
-  const sunkStatus = () => isSunk
-  
+  const sunkStatus = () => isSunk;
+
   const sunk = () => {
-    isSunk = true
-  }
+    isSunk = true;
+  };
 
-  const hit = () =>  {
-    hits += 1
+  const hit = () => {
+    hits += 1;
 
-    if (hits === length) sunk()
-  } 
+    if (hits === length) sunk();
+  };
 
-  return { length, hit, getName, sunk, name, getLength, getHits, sunkStatus, found, gotFound }
-
-}
+  return {
+    length,
+    hit,
+    getName,
+    sunk,
+    name,
+    getLength,
+    getHits,
+    sunkStatus,
+    found,
+    gotFound,
+  };
+};
 
 export default Ship;
