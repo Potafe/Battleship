@@ -1,0 +1,15 @@
+#app.setup {
+  display: block;
+  min-height: 100vh;
+  padding: 1rem;
+  text-align: center;
+  .setup-container {
+    display: flex;
+    justify-content: center;
+    max-width: 680px;
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: 1fr 10%;
+    gap: 1rem;
+  }
+}
