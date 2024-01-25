@@ -4,7 +4,7 @@ import cruiser from "../assets/Cruiser.svg";
 import destroyer from "../assets/Destroyer.svg";
 import submarine from "../assets/Submarine.svg";
 
-const fleet = () => {
+const fleet = (() => { 
   const loadBattleship = (info) => {
     info.board.style.backroundImage +=
       info.board.style.backroundImage === ""
@@ -12,13 +12,13 @@ const fleet = () => {
         : `, url(${battleship})`;
 
     info.board.style.backroundSize +=
-      info.board.style.backroundSize === "" ? "50% 10%" : ", 50% 10%";
+      info.board.style.backroundSize === "" ? "40% 9.50%" : ", 40% 9.50%";
 
-    const backroudPos = `${info.j * 20}% ${info.i * 11 + info.i / 10}%`;
+    const backroudPos = `${info.j * 17.5 - (info.j / 2 + info.j / 5)}% ${info.i * 11 + info.i / 10}%`
     info.board.style.backroudPos +=
       info.board.style.backroudPos === ""
         ? `${backroudPos}`
-        : `, ${backroudPos}`;
+        : `,${backroudPos}`;
 
     info.found.battleship = true;
   };
@@ -30,9 +30,9 @@ const fleet = () => {
         : `, url(${carrier})`;
 
     info.board.style.backroundSize +=
-      info.board.style.backroundSize === "" ? "30% 10%" : ", 30% 10%";
+      info.board.style.backroundSize === "" ? "50% 10%" : ", 50% 10%";
 
-    const backroudPos = `${info.j * 15 - (info.j / 2 + info.j / 5)}% ${info.i * 11 + info.i / 10}%`;
+    const backroudPos = `${info.j * 20}% ${info.i * 11 + info.i / 10}%`
     info.board.style.backroudPos +=
       info.board.style.backroudPos === ""
         ? `${backroudPos}`
@@ -66,9 +66,9 @@ const fleet = () => {
         : `, url(${destroyer})`;
 
     info.board.style.backroundSize +=
-      info.board.style.backroundSize === "" ? "50% 10%" : ", 50% 10%";
+      info.board.style.backroundSize === "" ? '20% 9%' : ', 20% 9%'
 
-    const backroudPos = `${info.j * 20}% ${info.i * 11 + info.i / 10}%`;
+    const backroudPos = `${ info.j * 13.25 - (info.j / 2 + info.j / 5) }% ${info.i * 11 + info.i / 10}%`
     info.board.style.backroudPos +=
       info.board.style.backroudPos === ""
         ? `${backroudPos}`
@@ -84,9 +84,9 @@ const fleet = () => {
         : `, url(${submarine})`;
 
     info.board.style.backroundSize +=
-      info.board.style.backroundSize === "" ? "50% 10%" : ", 50% 10%";
+      info.board.style.backroundSize === "" ? "30% 10%" : ", 30% 10%";
 
-    const backroudPos = `${info.j * 20}% ${info.i * 11 + info.i / 10}%`;
+    const backroudPos = `${info.j * 15 - (info.j / 2 + info.j / 5)}% ${info.i * 11 + info.i / 10 + 1}%`
     info.board.style.backroudPos +=
       info.board.style.backroudPos === ""
         ? `${backroudPos}`
@@ -127,7 +127,23 @@ const fleet = () => {
     }
   };
 
-  return { loadShipsOnBoard };
-};
+  const loadFleet = (found, map) => {
+    const board = document.getElementById('field-container')
+    const mapArray = map.board
+
+    for (let i = 0; i < mapArray.length; i+=1) {
+        for (let j = 0; j < mapArray[0].length; j+=1) {
+            if (mapArray[i][j] !== 'x') {
+                loadShipsOnBoard(mapArray[i][j], {
+                    found, board, i, j,
+                })
+            }
+        }
+    }
+  }
+
+  return { loadShipsOnBoard, loadFleet };
+
+})()
 
 export default fleet;
