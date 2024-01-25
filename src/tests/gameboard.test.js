@@ -21,7 +21,7 @@ test("Expect a 10x10 board", () => {
 test("X battleship", () => {
   const board = Gameboard();
   const battleship = Ship("battleship", 4);
-  board.placeShip(battleship, 3, 3, true);
+  board.placeX(battleship, 3, 3);
 
   expect(board.board).toEqual([
     ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
@@ -48,11 +48,11 @@ test("X battleship", () => {
   ]);
 });
 
-test("Expect ship to be placed at co-ordinates", () => {
+test("Y Battleship", () => {
   const board = Gameboard();
 
   const battleship = Ship("battleship", 4);
-  board.placeShip(battleship, 2, 2, false);
+  board.placeY(battleship, 2, 2);
 
   expect(board.board).toEqual([
     ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
@@ -71,7 +71,7 @@ test("Expect ship to be placed at co-ordinates", () => {
 test("Expect missed coordinates", () => {
   const g = Gameboard();
 
-  g.placeShip(Ship("battleship", 4), 3, 4, false);
+  g.placeY(Ship("battleship", 4), 3, 4);
   g.receiveAttack(0, 4);
 
   expect(g.board[0][4]).toEqual("miss");
@@ -81,7 +81,7 @@ test("Expect missed coordinates", () => {
 test("Expect ship at given co-ordinates to be sunk", () => {
   const g = Gameboard();
 
-  g.placeShip(Ship("battleship", 4), 3, 4, false);
+  g.placeY(Ship("battleship", 4), 3, 4);
   g.receiveAttack(3, 4);
   g.receiveAttack(4, 4);
 
@@ -91,7 +91,7 @@ test("Expect ship at given co-ordinates to be sunk", () => {
 test("Expect ship at given co-ordinates to be sunk", () => {
   const g = Gameboard();
 
-  g.placeShip(Ship("battleship", 4), 3, 4, false);
+  g.placeY(Ship("battleship", 4), 3, 4);
   g.receiveAttack(3, 4);
   g.receiveAttack(4, 4);
   g.receiveAttack(5, 4);
@@ -103,11 +103,11 @@ test("Expect ship at given co-ordinates to be sunk", () => {
 test("Expect ship at given co-ordinates to be sunk", () => {
   const g = Gameboard();
 
-  g.placeShip(Ship("battleship", 4), 2, 0, true);
-  g.placeShip(Ship("carrier", 5), 0, 0, true);
-  g.placeShip(Ship("destroyer", 2), 4, 2, true);
-  g.placeShip(Ship("submarine", 3), 7, 9, false);
-  g.placeShip(Ship("cruiser", 3), 3, 3, true);
+  g.placeX(Ship("battleship", 4), 2, 0);
+  g.placeX(Ship("carrier", 5), 0, 0);
+  g.placeX(Ship("destroyer", 2), 4, 2);
+  g.placeY(Ship("submarine", 3), 7, 9);
+  g.placeX(Ship("cruiser", 3), 3, 3);
 
   // carrier
   g.receiveAttack(0, 0);
