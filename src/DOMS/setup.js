@@ -4,6 +4,7 @@ import cruiser from "../assets/Cruiser.svg";
 import destroyer from "../assets/Destroyer.svg";
 import submarine from "../assets/Submarine.svg";
 import functions from "./functions";
+import Gameloop from "../factories/gameloop";
 
 const setup = (() => {
   const loadShipCard = (ship) => {
@@ -117,10 +118,15 @@ const setup = (() => {
     container.appendChild(buttonContainer)
   }
 
-  function resetFleetSelect(){
+  function resetFleetSelect() {
+    const map = Gameloop.state.getPlayer().getMap()
     const fleet = document.getElementById('fleet-setup')
 
     fleet.childNodes.forEach((node) => (node.style.visibility = 'visible'))
+
+    map.getFleet().forEach((ship) => ship.resetFound())
+    map.setFleetEmpty()
+
   }
 
   function resetArray(array) {
@@ -133,6 +139,8 @@ const setup = (() => {
 
   function resetBackground(node) {
     node.style.backgroundImage = ''
+    node.style.backgroundSize = ''
+    node.style.backgroundPosition = ''
   }
 
 
@@ -140,16 +148,16 @@ const setup = (() => {
   
   const doReset = (map) => {
     const fieldContainer = document.getElementById('field-container')
-    const { board } = map
 
     resetFleetSelect()
-    resetArray(board)
+    resetArray(map)
     resetBackground(fieldContainer)
   }
 
-  const initResetAndContinueButtons = (map) => {
+  const initResetAndContinueButtons = () => {
     const resetButton = document.getElementById('reset-button')
     const continueButton = document.getElementById('continue-button') 
+    const map = Gameloop.state.getPlayer().getMap().getBoard()
 
     resetButton.addEventListener('click', () => doReset(map))
     continueButton.addEventListener('click', doContinue)
@@ -178,7 +186,7 @@ const setup = (() => {
     
   }
 
-  const loadSetupMaterial = (map) => {
+  const loadSetupMaterial = () => {
     const app = document.getElementById("app");
     app.classList.add("setup");
 
@@ -201,7 +209,7 @@ const setup = (() => {
     const boardContainer = document.getElementById('board-setup')
     axisButton(boardContainer)
     initAxisButton()
-    initResetAndContinueButtons(map)
+    initResetAndContinueButtons()
 
 
   };
