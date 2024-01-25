@@ -113,12 +113,12 @@ const setup = (() => {
     buttonX.id = 'x-button'
     buttonX.classList.add('axis-button', 'selected')
     buttonX.className = 'axis-button'
-    buttonX.textContent = 'X'
+    buttonX.textContent = 'X Axis'
 
     const buttonY = document.createElement('button')
     buttonY.id = 'y-button'
     buttonY.className = 'axis-button'
-    buttonY.textContent = 'Y'
+    buttonY.textContent = 'Y Axis'
 
     buttonContainer.appendChild(buttonX)
     buttonContainer.appendChild(buttonY)
