@@ -12,4 +12,20 @@
     grid-template-columns: 1fr 10%;
     gap: 1rem;
   }
+  .board-fleet-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .reset-continue-section {
+    display: flex;
+    justify-content: center;
+    gap: min(10%, 2rem);
+    max-width: 680px;
+    margin: 0.5rem auto;
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }

@@ -1,17 +1,20 @@
 .fleet-setup {
-  display: grid;
-  grid-template-columns: 1fr;
-  width: 100%;
-  max-width: 80rem;
-  backdrop-filter: blur(10px);
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 0px 30px 1px #0000004d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  // backdrop-filter: blur(10px);
+  // background-color: rgba(0, 0, 0, 0.5);
+  // box-shadow: 0px 0px 30px 1px #0000004d;
   .ship-card {
-    height: 6rem;
+    flex: 1;
+    max-width: 150px;
+    min-width: 100px;
     position: relative;
+    background: transparent;
     user-select: none;
     white-space: nowrap;
-    transition: all 0.05s linear;
+    transition: all 0.05s linear, visibility 0.01s linear;
     font-family: inherit;
     border: 2px solid white;
     margin: calc(0.25rem + 0.5vw);
@@ -21,10 +24,10 @@
     filter: brightness(0.75);
     opacity: 0.75;
     img {
+      pointer-events: none;
       position: relative;
       z-index: 3;
-      height: min(calc(1.5rem + 2vw), 2.5rem);
-      min-width: 5rem;
+      height: min(calc(1rem + 1.5vw), 2rem);
     }
     p {
       position: relative;
@@ -35,11 +38,11 @@
 
 .ship-card:before,
 .ship-card:after {
-  content: "";
+  content: '';
   z-index: 2;
   position: absolute;
-  background: rgb(255, 255, 255);
-  transition: all 0.2s linear;
+  background: rgba(0, 0, 0, 1);
+  transition: all 0.2s linear, visibility 0.01s linear;
 }
 
 .ship-card:before {

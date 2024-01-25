@@ -4,7 +4,7 @@
 @import "./playbutton.scss";
 @import "./shipSelect.scss";
 @import "./setup.scss";
-
+@import "./axisButton.scss";
 :root {
   color-scheme: light dark;
   color: $main-color;
@@ -68,6 +68,20 @@ body {
     }
     .play-button {
       margin-top: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .app.setup {
+    .setup-container {
+      .board-fleet-container {
+        display: flex;
+        flex-direction: column;
+        .fleet-setup{
+          flex-direction: row;
+        }
+      }
     }
   }
 }
