@@ -41,6 +41,7 @@ const functions = (() => {
   const loadField = (container) => {
     const fieldContainer = document.createElement("field-container");
     fieldContainer.className = "field-container";
+    fieldContainer.id =  "field-container"
 
     for (let i = 0; i < BOARD_SIZE; i += 1) {
       for (let j = 0; j < BOARD_SIZE; j += 1) {
