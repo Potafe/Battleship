@@ -11,6 +11,10 @@ const Ship = (name, length) => {
     isFound = true;
   };
 
+  const resetFound = () => {
+    isFound = false
+  }
+
   const found = () => isFound;
 
   const getHits = () => hits;
@@ -38,6 +42,7 @@ const Ship = (name, length) => {
     sunkStatus,
     found,
     gotFound,
+    resetFound
   };
 };
 

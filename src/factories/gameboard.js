@@ -4,7 +4,7 @@ const Gameboard = () => {
   const board = new Array(10).fill("x").map(() => new Array(10).fill("x"));
 
   const missedTarget = [];
-  const fleet = [];
+  let fleet = [];
 
   const shipOnDrag = {
     name: '',
@@ -41,6 +41,10 @@ const Gameboard = () => {
         fleet.push(Ship("destroyer", 2));
     }
   };
+
+  const getFleet = () => fleet
+
+  const setFleetEmpty = () => { fleet = [] }
 
   const isOutOfBoard = (shipLength, boardLength, field) => shipLength > boardLength - field
 
@@ -151,7 +155,9 @@ const Gameboard = () => {
     getBoard,
     shipOnDrag,
     getshipOnDrag,
-    setShipOnDrag
+    setShipOnDrag,
+    getFleet,
+    setFleetEmpty
   };
 };
 
