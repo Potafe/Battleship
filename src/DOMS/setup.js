@@ -80,12 +80,29 @@ const setup = (() => {
     container.appendChild(fleetSection);
   };
 
+
+  const initAxisButton = () => {
+    const buttonX = document.getElementById('x-button')
+    const buttonY = document.getElementById('y-button')
+
+    const handleButton = (button, alternateButton) => {
+      button.classList.add('selected')
+      alternateButton.classList.remove('selected')
+    }
+
+    buttonX.addEventListener('click', () => handleButton(buttonX, buttonY))
+
+    buttonY.addEventListener('click', () => handleButton(buttonY, buttonX))
+
+  }
+
   const axisButton = (container) => {
     const buttonContainer = document.createElement('div')
     buttonContainer.className = 'axis-button-container'
 
     const buttonX = document.createElement('button')
     buttonX.id = 'x-button'
+    buttonX.classList.add('axis-button', 'selected')
     buttonX.className = 'axis-button'
     buttonX.textContent = 'X'
 
@@ -100,6 +117,45 @@ const setup = (() => {
     container.appendChild(buttonContainer)
   }
 
+  function resetFleetSelect(){
+    const fleet = document.getElementById('fleet-setup')
+
+    fleet.childNodes.forEach((node) => (node.style.visibility = 'visible'))
+  }
+
+  function resetArray(array) {
+    for (let i = 0; i < array.length; i += 1) {
+      for (let j = 0; j < array[0].length; j += 1) {
+        array[i][j] = 'x'
+      }
+    }
+  }
+
+  function resetBackground(node) {
+    node.style.backgroundImage = ''
+  }
+
+
+  function doContinue() {}
+  
+  const doReset = (map) => {
+    const fieldContainer = document.getElementById('field-container')
+    const { board } = map
+
+    resetFleetSelect()
+    resetArray(board)
+    resetBackground(fieldContainer)
+  }
+
+  const initResetAndContinueButtons = (map) => {
+    const resetButton = document.getElementById('reset-button')
+    const continueButton = document.getElementById('continue-button') 
+
+    resetButton.addEventListener('click', () => doReset(map))
+    continueButton.addEventListener('click', doContinue)
+
+  }
+
   const resetAndContinueButton = (container) => {
     const buttonContainer = document.createElement('section')
     buttonContainer.id = 'reset-continue-section'
@@ -107,10 +163,12 @@ const setup = (() => {
 
     const resetButton = document.createElement('button')
     resetButton.className = 'reset-button'
+    resetButton.id = 'reset-button'
     resetButton.textContent = 'Reset'
 
     const continueButton = document.createElement('button')
     continueButton.className = 'continue-button'
+    continueButton.id = 'continue-button'
     continueButton.textContent = 'Continue'
 
     buttonContainer.appendChild(resetButton)
@@ -120,7 +178,7 @@ const setup = (() => {
     
   }
 
-  const loadSetupMaterial = () => {
+  const loadSetupMaterial = (map) => {
     const app = document.getElementById("app");
     app.classList.add("setup");
 
@@ -142,6 +200,10 @@ const setup = (() => {
 
     const boardContainer = document.getElementById('board-setup')
     axisButton(boardContainer)
+    initAxisButton()
+    initResetAndContinueButtons(map)
+
+
   };
 
 //   const loadSetup = () => {
