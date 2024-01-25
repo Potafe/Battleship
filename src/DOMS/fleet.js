@@ -1,16 +1,21 @@
-import battleship from "../assets/Battleship.svg";
-import carrier from "../assets/Carrier.svg";
-import cruiser from "../assets/Cruiser.svg";
-import destroyer from "../assets/Destroyer.svg";
-import submarine from "../assets/Submarine.svg";
+import battleshipX from "../assets/BattleshipX.svg";
+import carrierX from "../assets/CarrierX.svg";
+import cruiserX from "../assets/CruiserX.svg";
+import destroyerX from "../assets/DestroyerX.svg";
+import submarineX from "../assets/SubmarineX.svg";
+import battleshipY from "../assets/BattleshipY.svg";
+import carrierY from "../assets/CarrierY.svg";
+import cruiserY from "../assets/CruiserY.svg";
+import destroyerY from "../assets/DestroyerY.svg";
+import submarineY from "../assets/SubmarineY.svg";
 import Gameloop from "../factories/gameloop";
 
 const fleet = (() => { 
-  const loadBattleship = (info) => {
+  const loadBattleshipX = (info) => {
     info.board.style.backroundImage +=
       info.board.style.backroundImage === ""
-        ? `url(${battleship})`
-        : `, url(${battleship})`;
+        ? `url(${battleshipX})`
+        : `, url(${battleshipX})`;
 
     info.board.style.backroundSize +=
       info.board.style.backroundSize === "" ? "40% 9.50%" : ", 40% 9.50%";
@@ -24,11 +29,29 @@ const fleet = (() => {
     Gameloop.state.getPlayer().getMap().getShip('battleship').found()
   };
 
-  const loadCarrier = (info) => {
+  const loadBattleshipY = (info) => {
     info.board.style.backroundImage +=
       info.board.style.backroundImage === ""
-        ? `url(${carrier})`
-        : `, url(${carrier})`;
+        ? `url(${battleshipY})`
+        : `, url(${battleshipY})`;
+
+    info.board.style.backroundSize +=
+      info.board.style.backroundSize === "" ? "40% 9.50%" : ", 40% 9.50%";
+
+    const backroudPos = `${info.j * 17.5 - (info.j / 2 + info.j / 5)}% ${info.i * 11 + info.i / 10}%`
+    info.board.style.backroudPos +=
+      info.board.style.backroudPos === ""
+        ? `${backroudPos}`
+        : `,${backroudPos}`;
+
+    Gameloop.state.getPlayer().getMap().getShip('battleship').found()
+  };
+
+  const loadCarrierX = (info) => {
+    info.board.style.backroundImage +=
+      info.board.style.backroundImage === ""
+        ? `url(${carrierX})`
+        : `, url(${carrierX})`;
 
     info.board.style.backroundSize +=
       info.board.style.backroundSize === "" ? "50% 10%" : ", 50% 10%";
@@ -43,11 +66,30 @@ const fleet = (() => {
 
   };
 
-  const loadCruiser = (info) => {
+  const loadCarrierY = (info) => {
     info.board.style.backroundImage +=
       info.board.style.backroundImage === ""
-        ? `url(${cruiser})`
-        : `, url(${cruiser})`;
+        ? `url(${carrierY})`
+        : `, url(${carrierY})`;
+
+    info.board.style.backroundSize +=
+      info.board.style.backroundSize === "" ? "50% 10%" : ", 50% 10%";
+
+    const backroudPos = `${info.j * 20}% ${info.i * 11 + info.i / 10}%`
+    info.board.style.backroudPos +=
+      info.board.style.backroudPos === ""
+        ? `${backroudPos}`
+        : `, ${backroudPos}`;
+
+    Gameloop.state.getPlayer().getMap().getShip('carrier').found()
+
+  };
+
+  const loadCruiserX = (info) => {
+    info.board.style.backroundImage +=
+      info.board.style.backroundImage === ""
+        ? `url(${cruiserX})`
+        : `, url(${cruiserX})`;
 
     info.board.style.backroundSize +=
       info.board.style.backroundSize === "" ? "30% 10%" : ", 30% 10%";
@@ -62,11 +104,30 @@ const fleet = (() => {
 
   };
 
-  const loadDestroyer = (info) => {
+  const loadCruiserY = (info) => {
     info.board.style.backroundImage +=
       info.board.style.backroundImage === ""
-        ? `url(${destroyer})`
-        : `, url(${destroyer})`;
+        ? `url(${cruiserY})`
+        : `, url(${cruiserY})`;
+
+    info.board.style.backroundSize +=
+      info.board.style.backroundSize === "" ? "30% 10%" : ", 30% 10%";
+
+    const backroudPos = `${info.j * 15 - (info.j / 2 + info.j / 5)}% ${info.i * 11 + info.i / 10}%`;
+    info.board.style.backroudPos +=
+      info.board.style.backroudPos === ""
+        ? `${backroudPos}`
+        : `, ${backroudPos}`;
+
+    Gameloop.state.getPlayer().getMap().getShip('cruiser').found()
+
+  };
+
+  const loadDestroyerX = (info) => {
+    info.board.style.backroundImage +=
+      info.board.style.backroundImage === ""
+        ? `url(${destroyerX})`
+        : `, url(${destroyerX})`;
 
     info.board.style.backroundSize +=
       info.board.style.backroundSize === "" ? '20% 9%' : ', 20% 9%'
@@ -81,11 +142,31 @@ const fleet = (() => {
 
   };
 
-  const loadSubmarine = (info) => {
+  const loadDestroyerY = (info) => {
     info.board.style.backroundImage +=
       info.board.style.backroundImage === ""
-        ? `url(${submarine})`
-        : `, url(${submarine})`;
+        ? `url(${destroyerY})`
+        : `, url(${destroyerY})`;
+
+    info.board.style.backroundSize +=
+      info.board.style.backroundSize === "" ? '20% 9%' : ', 20% 9%'
+
+    const backroudPos = `${ info.j * 13.25 - (info.j / 2 + info.j / 5) }% ${info.i * 11 + info.i / 10}%`
+    info.board.style.backroudPos +=
+      info.board.style.backroudPos === ""
+        ? `${backroudPos}`
+        : `, ${backroudPos}`;
+
+    Gameloop.state.getPlayer().getMap().getShip('destroyer').found()
+
+  };
+
+
+  const loadSubmarineX = (info) => {
+    info.board.style.backroundImage +=
+      info.board.style.backroundImage === ""
+        ? `url(${submarineX})`
+        : `, url(${submarineX})`;
 
     info.board.style.backroundSize +=
       info.board.style.backroundSize === "" ? "30% 10%" : ", 30% 10%";
@@ -96,7 +177,26 @@ const fleet = (() => {
         ? `${backroudPos}`
         : `, ${backroudPos}`;
 
-  Gameloop.state.getPlayer().getMap().getShip('submarine').found()
+    Gameloop.state.getPlayer().getMap().getShip('submarine').found()
+
+  };
+
+  const loadSubmarineY = (info) => {
+    info.board.style.backroundImage +=
+      info.board.style.backroundImage === ""
+        ? `url(${submarineY})`
+        : `, url(${submarineY})`;
+
+    info.board.style.backroundSize +=
+      info.board.style.backroundSize === "" ? "30% 10%" : ", 30% 10%";
+
+    const backroudPos = `${info.j * 15 - (info.j / 2 + info.j / 5)}% ${info.i * 11 + info.i / 10 + 1}%`
+    info.board.style.backroudPos +=
+      info.board.style.backroudPos === ""
+        ? `${backroudPos}`
+        : `, ${backroudPos}`;
+
+    Gameloop.state.getPlayer().getMap().getShip('submarine').found()
 
   };
 
@@ -105,30 +205,56 @@ const fleet = (() => {
     const map = Gameloop.state.getPlayer().getMap()
 
     switch (boardElement) {
-      case "battleship":
+      case "battleshipX":
         if (map.getShip('battleship').found()) return;
-        loadBattleship(info);
+        loadBattleshipX(info);
         break;
+      
+      case "battleshipY":
+        if (map.getShip('battleship').found()) return;
+        loadBattleshipY(info);
+        break;  
 
-      case "carrier":
+      case "carrierX":
         if (map.getShip('carrier').found()) return;
-        loadCarrier(info);
+        loadCarrierX(info);
         break;
 
-      case "cruiser":
+      case "carrierY":
+        if (map.getShip('carrier').found()) return;
+        loadCarrierY(info);
+        break;  
+
+      case "cruiserX":
         if (map.getShip('cruiser').found()) return;
-        loadCruiser(info);
+        loadCruiserX(info);
         break;
 
-      case "destroyer":
+      case "cruiserY":
+        if (map.getShip('cruiser').found()) return;
+        loadCruiserY(info);
+        break;
+        
+
+      case "destroyerX":
         if (map.getShip('destroyer').found()) return;
-        loadDestroyer(info);
+        loadDestroyerX(info);
         break;
 
-      case "submarine":
+      case "destroyerY":
+        if (map.getShip('destroyer').found()) return;
+        loadDestroyerY(info);
+        break;    
+
+      case "submarineX":
         if (map.getShip('submarine').found()) return;
-        loadSubmarine(info);
+        loadSubmarineX(info);
         break;
+
+      case "submarineY":
+        if (map.getShip('submarine').found()) return;
+        loadSubmarineY(info);
+        break;  
 
       default:
         break;

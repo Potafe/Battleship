@@ -1,8 +1,8 @@
-import battleship from "../assets/Battleship.svg";
-import carrier from "../assets/Carrier.svg";
-import cruiser from "../assets/Cruiser.svg";
-import destroyer from "../assets/Destroyer.svg";
-import submarine from "../assets/Submarine.svg";
+import battleship from "../assets/BattleshipX.svg";
+import carrier from "../assets/CarrierX.svg";
+import cruiser from "../assets/CruiserX.svg";
+import destroyer from "../assets/DestroyerX.svg";
+import submarine from "../assets/SubmarineX.svg";
 import functions from "./functions";
 import Gameloop from "../factories/gameloop";
 
@@ -81,15 +81,19 @@ const setup = (() => {
     container.appendChild(fleetSection);
   };
 
+  const handleButton = (button, alternateButton) => {
+    const map = Gameloop.state.getPlayer().getMap()
+
+    button.is === 'x-button' ? map.setAxisX() : map.setAxisY
+
+    button.classList.add('selected')
+    alternateButton.classList.remove('selected')
+    
+  }
 
   const initAxisButton = () => {
     const buttonX = document.getElementById('x-button')
     const buttonY = document.getElementById('y-button')
-
-    const handleButton = (button, alternateButton) => {
-      button.classList.add('selected')
-      alternateButton.classList.remove('selected')
-    }
 
     buttonX.addEventListener('click', () => handleButton(buttonX, buttonY))
 

@@ -5,6 +5,7 @@ const Gameboard = () => {
 
   const missedTarget = [];
   let fleet = [];
+  let axis = 'X'
 
   const shipOnDrag = {
     name: '',
@@ -45,6 +46,12 @@ const Gameboard = () => {
   const getFleet = () => fleet
 
   const setFleetEmpty = () => { fleet = [] }
+
+  const getAxis = () => axis
+
+  const setAxisX = () => { axis = 'X' }
+  
+  const setAxisY = () => { axis = 'Y' }
 
   const isOutOfBoard = (shipLength, boardLength, field) => shipLength > boardLength - field
 
@@ -157,7 +164,11 @@ const Gameboard = () => {
     getshipOnDrag,
     setShipOnDrag,
     getFleet,
-    setFleetEmpty
+    setFleetEmpty,
+    axis,
+    getAxis,
+    setAxisX,
+    setAxisY
   };
 };
 

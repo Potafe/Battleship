@@ -11,8 +11,8 @@
   border: none;
   background-color: transparent;
   -webkit-mask-size: 100%;
-  -webkit-mask: url("/src/assets/Battleship.svg") no-repeat 50% 50%;
-  mask: url("/src/assets/Battleship.svg") no-repeat 50% 50%;
+  -webkit-mask: url("/src/assets/BattleshipX.svg") no-repeat 50% 50%;
+  mask: url("/src/assets/BattleshipX.svg") no-repeat 50% 50%;
   cursor: pointer;
 }
 .play-button:after {

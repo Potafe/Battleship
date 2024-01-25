@@ -46,6 +46,7 @@ const drag = (() => {
                     console.log(battleship)
                     battleship.style.visibility = 'hidden'
                 }
+                
             })
         })
     }
