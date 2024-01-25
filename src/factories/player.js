@@ -15,7 +15,7 @@ const Player = (name) => {
 
   const getTurn = () => turns;
 
-  const getBoard = () => board.board
+  const getMap = () => board
   
   const isEmpty = (x, y) => board.board[x][y] === "x";
 
@@ -53,7 +53,7 @@ const Player = (name) => {
     getName,
     setName,
     board,
-    getBoard,
+    getMap,
   };
 };
 
