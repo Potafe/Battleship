@@ -3,6 +3,7 @@ import carrier from "../assets/Carrier.svg";
 import cruiser from "../assets/Cruiser.svg";
 import destroyer from "../assets/Destroyer.svg";
 import submarine from "../assets/Submarine.svg";
+import Gameloop from "../factories/gameloop";
 
 const fleet = (() => { 
   const loadBattleship = (info) => {
@@ -20,7 +21,7 @@ const fleet = (() => {
         ? `${backroudPos}`
         : `,${backroudPos}`;
 
-    info.found.battleship = true;
+    Gameloop.state.getPlayer().getMap().getShip('battleship').found()
   };
 
   const loadCarrier = (info) => {
@@ -38,7 +39,8 @@ const fleet = (() => {
         ? `${backroudPos}`
         : `, ${backroudPos}`;
 
-    info.found.carrier = true;
+    Gameloop.state.getPlayer().getMap().getShip('carrier').found()
+
   };
 
   const loadCruiser = (info) => {
@@ -56,7 +58,8 @@ const fleet = (() => {
         ? `${backroudPos}`
         : `, ${backroudPos}`;
 
-    info.found.cruiser = true;
+    Gameloop.state.getPlayer().getMap().getShip('cruiser').found()
+
   };
 
   const loadDestroyer = (info) => {
@@ -74,7 +77,8 @@ const fleet = (() => {
         ? `${backroudPos}`
         : `, ${backroudPos}`;
 
-    info.found.destroyer = true;
+    Gameloop.state.getPlayer().getMap().getShip('destroyer').found()
+
   };
 
   const loadSubmarine = (info) => {
@@ -92,33 +96,37 @@ const fleet = (() => {
         ? `${backroudPos}`
         : `, ${backroudPos}`;
 
-    info.found.submarine = true;
+  Gameloop.state.getPlayer().getMap().getShip('submarine').found()
+
   };
 
   const loadShipsOnBoard = (boardElement, info) => {
+
+    const map = Gameloop.state.getPlayer().getMap()
+
     switch (boardElement) {
       case "battleship":
-        if (info.found.battleship) return;
+        if (map.getShip('battleship').found()) return;
         loadBattleship(info);
         break;
 
       case "carrier":
-        if (info.found.carrier) return;
+        if (map.getShip('carrier').found()) return;
         loadCarrier(info);
         break;
 
       case "cruiser":
-        if (info.found.cruiser) return;
+        if (map.getShip('cruiser').found()) return;
         loadCruiser(info);
         break;
 
       case "destroyer":
-        if (info.found.destroyer) return;
+        if (map.getShip('destroyer').found()) return;
         loadDestroyer(info);
         break;
 
       case "submarine":
-        if (info.found.submarine) return;
+        if (map.getShip('submarine').found()) return;
         loadSubmarine(info);
         break;
 
@@ -127,15 +135,16 @@ const fleet = (() => {
     }
   };
 
-  const loadFleet = (found, map) => {
+  const loadFleet = () => {
     const board = document.getElementById('field-container')
-    const mapArray = map.board
+    const map = Gameloop.state.getPlayer().getMap()
+    const mapArray = map.getBoard()
 
     for (let i = 0; i < mapArray.length; i+=1) {
         for (let j = 0; j < mapArray[0].length; j+=1) {
             if (mapArray[i][j] !== 'x') {
                 loadShipsOnBoard(mapArray[i][j], {
-                    found, board, i, j,
+                    board, i, j,
                 })
             }
         }

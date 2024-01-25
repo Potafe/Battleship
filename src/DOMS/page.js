@@ -24,8 +24,8 @@ const page = (() => {
   const loadSetup = () => {
     functions.deleteContent()
     setup.loadSetupMaterial()
-    console.log(game.player.board)
-    drag.draggableFields(shipOnDrag, found, game.player.board)
+    console.log(game.player.getMap())
+    drag.draggableFields(shipOnDrag, found, game.player.getMap())
   }
 
   const playButton = () => {

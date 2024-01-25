@@ -11,7 +11,7 @@ const Gameboard = () => {
     length: 0
   }
 
-  const getshipOnDrag = (shipInfo) => shipInfo.shipOnDrag
+  const getshipOnDrag = () => shipOnDrag
 
   const setShipOnDrag = (shipInfo) => {
     shipOnDrag.name = shipInfo.name
