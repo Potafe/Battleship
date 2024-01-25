@@ -23,15 +23,34 @@
     background: rgba(0, 0, 0, 1);
     filter: brightness(0.75);
     opacity: 0.75;
-    img {
+    &.hidden {
+      background: rgba(0, 0, 0, 0.5);
       pointer-events: none;
-      position: relative;
-      z-index: 3;
-      height: min(calc(1rem + 1.5vw), 2rem);
+      opacity: 0.5;
+      filter: brightness(0.5);
+      &::before,
+      &::after {
+        background: transparent;
+      }
+      &:focus {
+        opacity: 0.5;
+        filter: brightness(0.5);
+      }
+      .ship-content {
+        visibility: hidden;
+      }
     }
-    p {
-      position: relative;
-      z-index: 3;
+    .ship-content {
+      img {
+        pointer-events: none;
+        position: relative;
+        z-index: 3;
+        height: min(calc(1rem + 1.5vw), 2rem);
+      }
+      p {
+        position: relative;
+        z-index: 3;
+      }
     }
   }
 }
@@ -65,13 +84,13 @@
 
 .ship-card:active {
   transform: scale(0.95);
-  filter: brightness(100%) !important;
-  opacity: 1 !important;
+  filter: brightness(100%);
+  opacity: 1;
 }
 
 .ship-card:focus {
-  filter: brightness(100%) !important;
-  opacity: 1 !important;
+  filter: brightness(100%);
+  opacity: 1;
 }
 
 .ship-card:hover:before,

@@ -9,10 +9,12 @@ import Gameloop from "../factories/gameloop";
 const setup = (() => {
   const loadShipCard = (ship) => {
     const card = document.createElement("button");
+    const content = document.createElement('div')
     const image = document.createElement("img");
     const name = document.createElement("p");
 
-    card.classList.add("ship-card");
+    card.classList = "ship-card";
+    content.className = 'ship-content'
     image.className = "ship-image";
     name.className = "ship-name";
 
@@ -53,8 +55,10 @@ const setup = (() => {
         break;
     }
 
-    card.appendChild(image);
-    card.appendChild(name);
+    content.appendChild(image);
+    content.appendChild(name);
+
+    card.appendChild(content)
 
     return card;
   };
@@ -126,7 +130,7 @@ const setup = (() => {
     const map = Gameloop.state.getPlayer().getMap()
     const fleet = document.getElementById('fleet-setup')
 
-    fleet.childNodes.forEach((node) => (node.style.visibility = 'visible'))
+    fleet.childNodes.forEach((node) => (node.classList.remove = 'hidden'))
 
     map.getFleet().forEach((ship) => ship.resetFound())
     map.setFleetEmpty()
