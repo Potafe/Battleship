@@ -6,6 +6,20 @@ const Gameboard = () => {
   const missedTarget = [];
   const fleet = [];
 
+  const shipOnDrag = {
+    name: '',
+    length: 0
+  }
+
+  const getshipOnDrag = (shipInfo) => shipInfo.shipOnDrag
+
+  const setShipOnDrag = (shipInfo) => {
+    shipOnDrag.name = shipInfo.name
+    shipOnDrag.length = shipInfo.length
+  }
+
+  const getBoard = () => board
+
   const getShip = (shipName) =>
     fleet.filter((battleship) => battleship.getName() === shipName)[0];
 
@@ -28,70 +42,88 @@ const Gameboard = () => {
     }
   };
 
-  const placeShip = (battleship, x, y, orientation) => {
+  const isOutOfBoard = (shipLength, boardLength, field) => shipLength > boardLength - field
+
+  const placeX = (battleship, x, y) => {
     let length = battleship.getLength();
     const shipPlacement = [];
 
-    if (orientation === true) {
-      for (let j = y; j < board.length; j++) {
-        if (board[x][j] !== "x") return false;
+    if (isOutOfBoard(length, board.length, y)) return false
 
-        shipPlacement.push([x, j]);
-        length -= 1;
-        if (length === 0) {
-          break;
-        }
+    for (let j = y; j < board.length; j++) {
+      if (board[x][j] !== "x") return false;
+
+      shipPlacement.push([x, j]);
+      length -= 1;
+      if (length === 0) {
+        break;
       }
-
-      shipPlacement.forEach((coordinate) => {
-        const [i, j] = coordinate;
-        board[i][j] = `${battleship.getName()}X`;
-      });
-
-      addToFleet(battleship);
     }
 
-    if (orientation === false) {
-      for (let i = x; i < board.length; i++) {
-        if (board[i][y] !== "x") return false;
+    shipPlacement.forEach((coordinate) => {
+      const [i, j] = coordinate;
+      board[i][j] = `${battleship.getName()}X`;
+    });
 
-        shipPlacement.push([i, y]);
-        length -= 1;
-        if (length === 0) {
-          break;
-        }
+    addToFleet(battleship);
+
+    return true
+
+  }  
+
+
+  const placeY = (battleship, x, y) => {
+    let length = battleship.getLength();
+    const shipPlacement = [];
+
+    if (isOutOfBoard(length, board.length, x)) return false
+
+    for (let i = x; i < board.length; i++) {
+      if (board[i][y] !== "x") return false;
+
+      shipPlacement.push([i, y]);
+      length -= 1;
+      if (length === 0) {
+        break;
       }
-
-      shipPlacement.forEach((coordinate) => {
-        const [i, j] = coordinate;
-        board[i][j] = `${battleship.getName()}Y`;
-      });
-
-      addToFleet(battleship);
     }
-  };
+
+    shipPlacement.forEach((coordinate) => {
+      const [i, j] = coordinate;
+      board[i][j] = `${battleship.getName()}Y`;
+    });
+
+    addToFleet(battleship);
+
+    return true
+  }
 
   const registerHit = (x, y) => {
     switch (board[x][y]) {
       case "carrierX":
       case "carrierY":
         getShip("carrier").hit();
+        board[x][y] = 'hit'
         break;
       case "battleshipX":
       case "battleshipY":
         getShip("battleship").hit();
+        board[x][y] = 'hit'
         break;
       case "cruiserX":
       case "cruiserY":
         getShip("cruiser").hit();
+        board[x][y] = 'hit'
         break;
       case "submarineX":
       case "submarineY":
         getShip("submarine").hit();
+        board[x][y] = 'hit'
         break;
       case "destroyerX":
       case "destroyerY":
         getShip("destroyer").hit();
+        board[x][y] = 'hit'
         break;
       default:
         board[x][y] = "miss";
@@ -110,11 +142,16 @@ const Gameboard = () => {
 
   return {
     board,
-    placeShip,
+    placeX,
+    placeY,
     receiveAttack,
     getShip,
     missedTarget,
     allSunk,
+    getBoard,
+    shipOnDrag,
+    getshipOnDrag,
+    setShipOnDrag
   };
 };
 
