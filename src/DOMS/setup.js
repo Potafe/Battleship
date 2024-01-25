@@ -88,7 +88,7 @@ const setup = (() => {
   const handleButton = (button, alternateButton) => {
     const map = Gameloop.state.getPlayer().getMap()
 
-    button.is === 'x-button' ? map.setAxisX() : map.setAxisY
+    button.is === 'x-button' ? map.setAxisX() : map.setAxisY()
 
     button.classList.add('selected')
     alternateButton.classList.remove('selected')
@@ -130,8 +130,8 @@ const setup = (() => {
     const map = Gameloop.state.getPlayer().getMap()
     const fleet = document.getElementById('fleet-setup')
 
-    fleet.childNodes.forEach((node) => (node.classList.remove = 'hidden'))
-
+    fleet.childNodes.forEach((node) => (node.classList.remove('hidden')))
+    
     map.getFleet().forEach((ship) => ship.resetFound())
     map.setFleetEmpty()
 
