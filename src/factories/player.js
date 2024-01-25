@@ -15,6 +15,8 @@ const Player = (name) => {
 
   const getTurn = () => turns;
 
+  const getBoard = () => board.board
+  
   const isEmpty = (x, y) => board.board[x][y] === "x";
 
   const random = () => Math.floor(Math.random() * (9 + 1));
@@ -51,6 +53,7 @@ const Player = (name) => {
     getName,
     setName,
     board,
+    getBoard,
   };
 };
 
