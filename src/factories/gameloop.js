@@ -2,6 +2,7 @@ import Player from "./player";
 import Ship from "./ship";
 
 const gameloop = (() => {
+
   const initializeGame = (playerName) => {
     const player = Player(playerName)
     const cpu = Player('cpu')
@@ -13,7 +14,7 @@ const gameloop = (() => {
     return { getCPU, getPlayer, player, cpu }
   };
 
-  const state = () => initializeGame();
+  const state =  initializeGame();
 
   const getState = () => state;
 
