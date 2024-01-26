@@ -1,6 +1,7 @@
 import functions from "./functions";
 import fleet from "./fleet";
 import Gameloop from "../factories/gameloop";
+import comp from "./component";
 
 const battle = (() => {
   const loadMapTitle = (titleText) => {
@@ -36,18 +37,66 @@ const battle = (() => {
 
     mapsSection.appendChild(loadPlayerMap())
     mapsSection.appendChild(loadCompMap())
+    mapsSection.appendChild(comp.createMessageSection('battle'))
 
     return mapsSection
   }
 
   const renderPlayerShips = () => {
+    const friendlyBoard = document.getElementById('field-container-friendly')
     Gameloop.state.getPlayer().getMap().setAllShipsNotFound()
-    fleet.loadFleet()
+    fleet.loadFleet(friendlyBoard)
   }
 
   const disableField = (field) => field.classList.add('disabled')
 
   const getShipNameFromBoard = (board) => board.slice(0, board.length - 1)
+
+  const findOrigin = (board, element) => {
+    for (let i = 0; i < board.length; i += 1) {
+      for (let j = 0; j < board[0].length; j += 1) {
+        if (board[i][j] === element) return [i, j]
+      }
+    }
+    return [0, 0]
+  }
+
+  const getMessageNumber = (node) => node.className.split('-')[2]
+
+  const displayHitMessage = (ship) => {
+    const messageElement = document.getElementById('message-text')
+    const messageCurrentNumber = getMessageNumber(messageElement)
+    let messageNewNumber = messageCurrentNumber
+
+    while (messageCurrentNumber === messageNewNumber) {
+      messageNewNumber = functions.randomOneToTen().toString()
+    }
+
+    if (!ship.isSunk) {
+      messageElement.className = 'message-text'
+      messageElement.classList.add(`hit-${functions.randomOneToTen()}`)
+      messageNewNumber = `hit-${functions.randomOneToTen()}`
+    }
+    if (ship.isSunk) {
+      messageElement.className = 'message-text'
+      messageElement.classList.add(`sunk-${functions.randomOneToTen()}`)
+      messageNewNumber = `hit-${functions.randomOneToTen()}`
+      fleet.loadFleet()
+    }
+  }
+
+  const displayMissMessage = () => {
+    const messageElement = document.getElementById('message-text')
+    const messageCurrentNumber = getMessageNumber(messageElement)
+    let messageNewNumber = messageCurrentNumber
+
+    while (messageCurrentNumber === messageNewNumber) {
+      messageNewNumber = functions.randomOneToTen().toString()
+    }
+
+    messageElement.className = 'message-text'
+    messageElement.classList.add(`miss-${messageNewNumber}`)
+  }
 
   const handleFieldClick = (e) => {
     const { target } = e
@@ -57,20 +106,35 @@ const battle = (() => {
     const x = parseInt(index / 10, 10)
     const y = index % 10
 
-    const enemyMap = Gameloop.state.getCPU().getMap().getBoard()
+    const enemyMap = Gameloop.state.getCPU().getMap()
+    const enemyBoard = Gameloop.state.getCPU().getMap().getBoard()
+    console.log('ENEMY MAP', enemyMap)
 
-    if (enemyMap[x][y] === 'hit' || enemyMap[x][y] === 'missed') return
+    if (enemyBoard[x][y] === 'hit' || enemyBoard[x][y] === 'missed') return
 
-    if (enemyMap[x][y] === 'x') {
-      console.log('b')
+    if (enemyBoard[x][y] === 'x') {
+      displayMissMessage()
       target.style.backgroundColor = 'lightblue'
+      target.classList.add('miss')
     } else {
       const shipName = getShipNameFromBoard(enemyMap[x][y])
       const battleship = enemyMap.getShip(shipName)
 
       battleship.hit()
+      displayHitMessage(battleship)
       target.style.backgroundColor = 'red'
       target.classList.add('hit')
+      const enemyFields = document.getElementById('field-container-enemy')
+      const [i, j] = findOrigin(enemyBoard, enemyBoard[x][y])
+
+      if (battleship.sunk()) {
+        fleet.loadShipsOnBoard(Gameloop.state.getCPU(), {
+          map: enemyMap,
+          board: enemyFields,
+          boardElement: enemyBoard[x][y]
+        })
+      }
+
     }
   }
 

@@ -88,7 +88,9 @@ const functions = (() => {
     return num
   }
 
-  return { deleteContent, createMap, createBoard, getCoordinates, getIndex, nearestTen };
+  const randomTen = () => Math.floor(Math.random() * 5) + 1
+
+  return { deleteContent, createMap, createBoard, getCoordinates, getIndex, nearestTen, randomTen };
 })();
 
 export default functions;
