@@ -55,6 +55,10 @@ const Gameboard = () => {
 
   const isOutOfBoard = (shipLength, boardLength, field) => shipLength > boardLength - field
 
+  const areAllShipsFound = () => fleet.length === 5
+
+  const setAllShipsNotFound = () => fleet.forEach((ship) => (ship.isFound = false))
+
   const placeX = (battleship, x, y) => {
     let length = battleship.getLength();
     const shipPlacement = [];
@@ -168,7 +172,9 @@ const Gameboard = () => {
     axis,
     getAxis,
     setAxisX,
-    setAxisY
+    setAxisY,
+    setAllShipsNotFound,
+    areAllShipsFound
   };
 };
 

@@ -1,5 +1,3 @@
-import fleet from "../DOMS/fleet";
-
 const Ship = (name, length) => {
   let isSunk = false;
   let hits = 0;
@@ -16,10 +14,6 @@ const Ship = (name, length) => {
   const resetFound = () => {
     isFound = false
   }
-
-  const areAllShipsFound = () => fleet.length === 5
-
-  const setAllShipsNotFound = () => fleet.forEach((ship) => (ship.isFound = false))
     
   const found = () => isFound;
 
@@ -49,8 +43,6 @@ const Ship = (name, length) => {
     found,
     gotFound,
     resetFound,
-    areAllShipsFound,
-    setAllShipsNotFound
   };
 };
 
