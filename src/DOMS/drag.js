@@ -21,7 +21,7 @@ const drag = (() => {
     }
 
     const dragEnter = () => {
-        const fieldContainer = document.getElementById('fleet-setup')
+        const fieldContainer = document.getElementById('field-container')
 
         fieldContainer.childNodes.forEach((node) => {
             node.addEventListener('dragenter', (e) => {
@@ -36,25 +36,45 @@ const drag = (() => {
 
     const styleFieldForDrop = (parent, index) => {
         const map = Gameloop.state.getPlayer().getMap()
+        const board = map.getBoard()
         const axis = map.getAxis()
 
         const shipOnDrag = map.getshipOnDrag()
         let { length } = shipOnDrag
         emptyFieldQueue()
 
+        let isTaken = false
+
         if (axis === 'X') {
             for (let i = index; i < Functions.nearestTen(index + 1); i+=1) {
+                const [x, y] = Functions.getCoordinates(i)
                 if (length === 0) break
                 parent.children[i].classList.add('hovering')
                 fieldQueue.push(i)
                 length -= 1
+                if (board[x][y] !== 'x') {
+                    isTaken = true
+                }
             }
-
-            if (length !== 0) 
-                fieldQueue.forEach((field) => {
-                    parent.children[field].classList.add('red')
-                })
         }
+
+        if (axis === 'Y') {
+            for (let i = index; i < 100; i+=10) {
+                const [x, y] = Functions.getCoordinates(i)
+                if (length === 0) break
+                parent.children[i].classList.add('hovering')
+                fieldQueue.push(i)
+                length -= 1
+                if (board[x][y] !== 'x') {
+                    isTaken = true
+                }
+            }   
+        }
+
+        if (isTaken || length !== 0) 
+            fieldQueue.forEach((field) => {
+                parent.children[field].classList.add('red')
+        })
     }
 
     
@@ -91,10 +111,9 @@ const drag = (() => {
     
 
     const hideIfPlaced = (isPlaced, shipOnDrag) => {
-        if (isPlaced) return 
+        if (!isPlaced) return 
         
         const battleship = document.querySelector(`[data-ship-name=${shipOnDrag.name}]`)
-        console.log(battleship)
         battleship.classList.add('hidden')
     }
 
@@ -121,7 +140,6 @@ const drag = (() => {
         fieldContainer.childNodes.forEach((node, index) => {
             node.addEventListener('drop', () => {
                 console.log(Gameloop.state.getPlayer().getMap().getBoard())
-                node.classList.remove('hovering')
                 const [x, y] = Functions.getCoordinates(index)
                 const [isPlaced, shipOnDrag] = dropIfValid(x, y)
 
