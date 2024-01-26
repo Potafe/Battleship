@@ -13,7 +13,7 @@ const setup = (() => {
     const image = document.createElement("img");
     const name = document.createElement("p");
 
-    card.classList = "ship-card";
+    card.className = "ship-card";
     content.className = 'ship-content'
     image.className = "ship-image";
     name.className = "ship-name";
@@ -63,7 +63,7 @@ const setup = (() => {
     return card;
   };
 
-  const loadFleetSection = (container) => {
+  const loadFleetSection = () => {
     const fleetSection = document.createElement("section");
     fleetSection.id = "fleet-setup";
     fleetSection.className = "fleet-setup";
@@ -82,7 +82,7 @@ const setup = (() => {
       fleetSection.appendChild(shipCard);
     });
 
-    container.appendChild(fleetSection);
+   return fleetSection
   };
 
   const handleButton = (button, alternateButton) => {
@@ -105,7 +105,7 @@ const setup = (() => {
 
   }
 
-  const axisButton = (container) => {
+  const loadAxisButtons = () => {
     const buttonContainer = document.createElement('div')
     buttonContainer.className = 'axis-button-container'
 
@@ -123,7 +123,7 @@ const setup = (() => {
     buttonContainer.appendChild(buttonX)
     buttonContainer.appendChild(buttonY)
 
-    container.appendChild(buttonContainer)
+    return buttonContainer
   }
 
   function resetFleetSelect() {
@@ -172,7 +172,7 @@ const setup = (() => {
 
   }
 
-  const resetAndContinueButton = (container) => {
+  const loadResetAndContinueButtons = () => {
     const buttonContainer = document.createElement('section')
     buttonContainer.id = 'reset-continue-section'
     buttonContainer.className = 'reset-continue-section'
@@ -190,35 +190,46 @@ const setup = (() => {
     buttonContainer.appendChild(resetButton)
     buttonContainer.appendChild(continueButton)
 
-    container.appendChild(buttonContainer)
+    return buttonContainer
     
+  }
+
+  const initButtons = () => {
+    initAxisButton()
+    initResetAndContinueButtons()
+  }
+
+  const loadBoardAndFleet = () => {
+    const boardAndFleet = document.createElement('div')
+    boardAndFleet.className = 'board-fleet-container'
+  
+    boardAndFleet.appendChild(functions.getBoard('setup'))
+    boardAndFleet.appendChild(loadFleetSection())
+
+    const boardContainer = boardAndFleet.querySelector('#board-setup')
+    boardContainer.appendChild(loadAxisButtons())
+
+    return boardAndFleet
+  }
+
+  const loadSetupContainer = () => {
+    const setupContainer = document.createElement("div");
+    setupContainer.id = "setup-container";
+    setupContainer.className = "setup-container";
+
+    setupContainer.appendChild(loadBoardAndFleet())
+
+    return setupContainer
   }
 
   const loadSetupMaterial = () => {
     const app = document.getElementById("app");
     app.classList.add("setup");
 
-    const setupContainer = document.createElement("div");
-    setupContainer.id = "setup-container";
-    setupContainer.className = "setup-container";
+    app.appendChild(loadSetupContainer())
+    app.appendChild(loadResetAndContinueButtons())
 
-    const boardFleet = document.createElement('div')
-    boardFleet.className = 'board-fleet-container'
-    functions.loadBoard(boardFleet, 'setup')
-    loadFleetSection(boardFleet)
-
-    setupContainer.appendChild(boardFleet)
-
-    app.appendChild(setupContainer);
-
-
-    resetAndContinueButton(app)
-
-    const boardContainer = document.getElementById('board-setup')
-    axisButton(boardContainer)
-    initAxisButton()
-    initResetAndContinueButtons()
-
+    initButtons()
 
   };
 

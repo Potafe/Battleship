@@ -1,13 +1,13 @@
 const start = (() => {
-  const loadTitle = (container) => {
+  const loadTitle = () => {
     const title = document.createElement("h1");
 
     title.textContent = "BATTLESHIP";
 
-    container.appendChild(title);
+    return title
   };
 
-  const loadForm = (container) => {
+  const loadForm = () => {
     const form = document.createElement("form");
     form.className = "name-form";
 
@@ -23,10 +23,10 @@ const start = (() => {
     form.appendChild(formInput);
     form.appendChild(inputBorder);
 
-    container.appendChild(form);
+    return form
   };
 
-  const loadPlayButton = (container) => {
+  const loadPlayButton = () => {
     const button = document.createElement("button");
     button.id = "play-button";
     button.className = "play-button";
@@ -37,23 +37,27 @@ const start = (() => {
 
     button.appendChild(buttonText);
 
-    container.appendChild(button);
+    return button
   };
+
+  const loadStartCard = () => {
+    const card = document.createElement("section");
+    const container = document.createElement("div");
+    
+    card.className = "start-card";
+    container.className = "content-container";
+    
+    card.appendChild(loadTitle(container));
+    card.appendChild(loadForm(container));
+    card.appendChild(loadPlayButton(container));
+
+    return card
+  }
 
   const loadCard = () => {
     const app = document.getElementById("app");
 
-    const card = document.createElement("section");
-    const container = document.createElement("div");
-    card.className = "start-card";
-    container.className = "content-container";
-
-    loadTitle(container);
-    loadForm(container);
-    loadPlayButton(container);
-
-    card.appendChild(container);
-    app.appendChild(card);
+    app.appendChild(loadStartCard())
   };
 
   return { loadCard };
