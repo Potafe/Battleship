@@ -107,6 +107,7 @@ const setup = (() => {
 
   const loadAxisButtons = () => {
     const buttonContainer = document.createElement('div')
+    buttonContainer.id = 'axis-button-container'
     buttonContainer.className = 'axis-button-container'
 
     const buttonX = document.createElement('button')
@@ -172,7 +173,7 @@ const setup = (() => {
 
   }
 
-  const loadResetAndContinueButtons = () => {
+  const loadResetAndContinueSection = () => {
     const buttonContainer = document.createElement('section')
     buttonContainer.id = 'reset-continue-section'
     buttonContainer.className = 'reset-continue-section'
@@ -199,11 +200,11 @@ const setup = (() => {
     initResetAndContinueButtons()
   }
 
-  const loadBoardAndFleet = () => {
+  const loadMapFleet = () => {
     const boardAndFleet = document.createElement('div')
     boardAndFleet.className = 'board-fleet-container'
   
-    boardAndFleet.appendChild(functions.getBoard('setup'))
+    boardAndFleet.appendChild(functions.createMap('setup'))
     boardAndFleet.appendChild(loadFleetSection())
 
     const boardContainer = boardAndFleet.querySelector('#board-setup')
@@ -212,22 +213,24 @@ const setup = (() => {
     return boardAndFleet
   }
 
-  const loadSetupContainer = () => {
+  const loadMapFleetSection = () => {
     const setupContainer = document.createElement("div");
     setupContainer.id = "setup-container";
     setupContainer.className = "setup-container";
 
-    setupContainer.appendChild(loadBoardAndFleet())
+    setupContainer.appendChild(loadMapFleet())
 
     return setupContainer
   }
 
   const loadSetupMaterial = () => {
     const app = document.getElementById("app");
-    app.classList.add("setup");
+    app.classList = ''
+    app.classList.add("app", "setup");
 
-    app.appendChild(loadSetupContainer())
-    app.appendChild(loadResetAndContinueButtons())
+
+    app.appendChild(loadMapFleetSection())
+    app.appendChild(loadResetAndContinueSection())
 
     initButtons()
 
