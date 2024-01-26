@@ -1,4 +1,5 @@
 import Gameboard from "./gameboard";
+import Ship from "./ship";
 
 const Player = (name) => {
   const board = Gameboard();
@@ -47,6 +48,40 @@ const Player = (name) => {
     turns += 1;
   };
 
+  const randomAxis = () => {
+    const axis = ['X', 'Y']
+    return axis[Math.floor(Math.random() * (1 + 1))]
+  }
+
+  const autoPlace = () => {
+    const fleet = ['battleship', 'carrier', 'cruiser', 'destroyer', 'submarine']
+    const length = [4, 5, 3, 2, 3]
+
+    const gameboard = board.getMap()
+
+    while (fleet.length) {
+      const axis = randomAxis()
+      let placed = false
+
+      const row = random()
+      const col = random()
+
+      if (axis === 'X') {
+        placed = gameboard.placeX(Ship(fleet[0], length[0]), row, col)
+      } else {
+        placed = gameboard.placeY(Ship(fleet[0], length[0]), row, col)
+      }
+
+      if (placed) {
+        fleet.shift()
+        length.shift()
+      }
+
+      console.log(gameboard)
+    }
+
+  }
+
   return {
     play,
     getTurn,
@@ -54,6 +89,7 @@ const Player = (name) => {
     setName,
     board,
     getMap,
+    autoPlace
   };
 };
 

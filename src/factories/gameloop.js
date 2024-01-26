@@ -3,8 +3,8 @@ import Ship from "./ship";
 
 const gameloop = (() => {
 
-  const initializeGame = (playerName) => {
-    const player = Player(playerName)
+  const initializeGame = () => {
+    const player = Player('Captain')
     const cpu = Player('cpu')
 
     const getPlayer = () => player

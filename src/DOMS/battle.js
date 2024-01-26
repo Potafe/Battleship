@@ -1,33 +1,90 @@
 import functions from "./functions";
+import fleet from "./fleet";
+import Gameloop from "../factories/gameloop";
 
 const battle = (() => {
-  const loadBoardTitle = (container, title) => {
-    const boardTitle = document.createElement("h2");
-    boardTitle.className = "board-title";
-    boardTitle.textContent = title;
+  const loadMapTitle = (titleText) => {
+    const titleContainer = document.createElement('div')
+    titleContainer.className = 'map-title-container'
 
-    container.appendChild(boardTitle);
-  };
+    const title = document.createElement('h3')
+    title.className = 'map-title'
+    title.textContent = titleText
+
+    titleContainer.appendChild(title)
+
+    return titleContainer
+  }
+
+  const loadPlayerMap = () => {
+    const map = functions.createMap('friendly')
+    map.appendChild(loadMapTitle('FRIENDLY WATERS'))
+
+    return map
+  }
+
+  const loadCompMap = () => {
+    const map = functions.createMap('enemy')
+    map.appendChild(loadMapTitle('ENEMY WATERS'))
+
+    return map
+  }
+
+  const loadMapSection = () => {
+    const  mapsSection = document.createElement("section");
+    mapsSection.className = "maps-section";
+
+    mapsSection.appendChild(loadPlayerMap())
+    mapsSection.appendChild(loadCompMap())
+
+    return mapsSection
+  }
+
+  const renderPlayerShips = () => {
+    Gameloop.state.getPlayer().getMap().setAllShipsNotFound()
+    fleet.loadFleet()
+  }
+
+  const initBoardField = () => {
+    const enemyMap = document.getElementById('board-enemy')
+    const enemyBoard = enemyMap.querySelector('.field-container')
+    enemyBoard.childNodes.forEach((field) => {
+      field.addEventListener('click', handleFieldClick)
+    })
+  }
+
+  const handleFieldClick = (e) => {
+    const { target } = e
+
+    const index = [...target.parentNode.children].indexOf(target)
+    const x = parseInt(index / 10, 10)
+    const y = index % 10
+
+    const enemyMap = Gameloop.state.getCPU().getMap().getBoard()
+
+    if (enemyMap[x][y] === 'hit' || enemyMap[x][y] === 'missed') return
+
+    if (enemyMap[x][y] === 'x') {
+      console.log('b')
+      target.style.backgroundColor = 'lightblue'
+    } else {
+      console.log('r')
+      target.style.backgroundColor = 'red'
+      target.classList.add('hit')
+    }
+  }
 
   const loadBoardsSection = () => {
+    functions.deleteContent()
+
     const app = document.getElementById("app");
+    app.classList = ''
+    app.classList.add('app', 'setup')
 
-    const boardsSection = document.createElement("section");
-    boardsSection.className = "boards-section";
-
-    const friendlyBoardContainer = document.createElement("div");
-    const enemyBoardContainer = document.createElement("div");
-
-    loadBoardTitle(friendlyBoardContainer, "FRIENDLY WATERS");
-    loadBoardTitle(enemyBoardContainer, "ENEMY WATERS");
-
-    functions.loadBoard(friendlyBoardContainer, "friendly");
-    functions.loadBoard(enemyBoardContainer, "enemy");
-
-    boardsSection.appendChild(friendlyBoardContainer);
-    boardsSection.appendChild(enemyBoardContainer);
-
-    app.appendChild(boardsSection);
+    app.appendChild(loadMapSection())
+    renderPlayerShips()
+    Gameloop.state.getCPU().autoPlace()
+    initBoardField()
   };
 
   return { loadBoardsSection };
