@@ -5,6 +5,8 @@ import Functions from "./functions"
 
 const drag = (() => {
 
+    let fieldQueue = []
+
     const dragStart = () => {
         const fleetContainer = document.getElementById('fleet-setup')
 
@@ -18,24 +20,71 @@ const drag = (() => {
         })
     }
 
+    const dragEnter = () => {
+        const fieldContainer = document.getElementById('fleet-setup')
+
+        fieldContainer.childNodes.forEach((node) => {
+            node.addEventListener('dragenter', (e) => {
+                e.preventDefault()
+            })
+        })
+    }
+
+    const emptyFieldQueue = () => {
+        fieldQueue = []
+    }
+
+    const styleFieldForDrop = (parent, index) => {
+        const map = Gameloop.state.getPlayer().getMap()
+        const axis = map.getAxis()
+
+        const shipOnDrag = map.getshipOnDrag()
+        let { length } = shipOnDrag
+        emptyFieldQueue()
+
+        if (axis === 'X') {
+            for (let i = index; i < Functions.nearestTen(index + 1); i+=1) {
+                if (length === 0) break
+                parent.children[i].classList.add('hovering')
+                fieldQueue.push(i)
+                length -= 1
+            }
+
+            if (length !== 0) 
+                fieldQueue.forEach((field) => {
+                    parent.children[field].classList.add('red')
+                })
+        }
+    }
+
+    
     const dragOver = () => {
         const fieldContainer = document.getElementById('field-container')
         
-        fieldContainer.childNodes.forEach((node) => {
+        fieldContainer.childNodes.forEach((node, index) => {
             node.addEventListener('dragover', (e) => {
                 e.preventDefault()
-                node.classList.add('hovering')
+                styleFieldForDrop(fieldContainer, index)
             })
         })
     }  
+
+    const resetFieldStyling = () => {
+        const fieldContainer = document.getElementById('field-container')
+
+        for (let i = 0; i < fieldQueue.length; i+=1) {
+            fieldContainer.children[fieldQueue[i]].className = 'field'
+        }
+
+        emptyFieldQueue()
+    }
 
     const dragLeave = () => {
         const fieldContainer = document.getElementById('field-container')
 
         fieldContainer.childNodes.forEach((node) => {
-            node.addEventListener('dragleave', (e) => {
-                e.preventDefault()
-                node.classList.remove('hovering')
+            node.addEventListener('dragleave', () => {
+                resetFieldStyling()
             })
         })
     }
@@ -75,6 +124,8 @@ const drag = (() => {
                 node.classList.remove('hovering')
                 const [x, y] = Functions.getCoordinates(index)
                 const [isPlaced, shipOnDrag] = dropIfValid(x, y)
+
+                resetFieldStyling()
                 
                 fleet.loadFleet()
     
@@ -88,6 +139,7 @@ const drag = (() => {
 
     const draggableFields = () => {
         dragStart()
+        dragEnter()
         dragOver()
         dragLeave()
         dragDrop()
