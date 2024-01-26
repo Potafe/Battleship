@@ -45,16 +45,13 @@ const battle = (() => {
     fleet.loadFleet()
   }
 
-  const initBoardField = () => {
-    const enemyMap = document.getElementById('board-enemy')
-    const enemyBoard = enemyMap.querySelector('.field-container')
-    enemyBoard.childNodes.forEach((field) => {
-      field.addEventListener('click', handleFieldClick)
-    })
-  }
+  const disableField = (field) => field.classList.add('disabled')
+
+  const getShipNameFromBoard = (board) => board.slice(0, board.length - 1)
 
   const handleFieldClick = (e) => {
     const { target } = e
+    disableField(target)
 
     const index = [...target.parentNode.children].indexOf(target)
     const x = parseInt(index / 10, 10)
@@ -68,10 +65,21 @@ const battle = (() => {
       console.log('b')
       target.style.backgroundColor = 'lightblue'
     } else {
-      console.log('r')
+      const shipName = getShipNameFromBoard(enemyMap[x][y])
+      const battleship = enemyMap.getShip(shipName)
+
+      battleship.hit()
       target.style.backgroundColor = 'red'
       target.classList.add('hit')
     }
+  }
+
+  const initBoardField = () => {
+    const enemyMap = document.getElementById('board-enemy')
+    const enemyBoard = enemyMap.querySelector('.field-container')
+    enemyBoard.childNodes.forEach((field) => {
+      field.addEventListener('click', handleFieldClick)
+    })
   }
 
   const loadBoardsSection = () => {
