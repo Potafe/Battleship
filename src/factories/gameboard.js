@@ -151,7 +151,7 @@ const Gameboard = () => {
   };
 
   const allSunk = () => {
-    const sunk = fleet.filter((battleship) => battleship.sunkStatus() === true);
+    const sunk = fleet.filter((battleship) => battleship.getSunk() === true);
     return sunk.length === 5;
   };
 

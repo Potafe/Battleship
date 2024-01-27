@@ -24,7 +24,7 @@ test("expect sunk", () => {
   pirateShip.hit();
   pirateShip.hit();
 
-  expect(pirateShip.sunkStatus()).toEqual(true);
+  expect(pirateShip.getSunk()).toEqual(true);
 });
 
 test("expect name", () => {

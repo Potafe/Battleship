@@ -97,7 +97,7 @@ test("Expect ship at given co-ordinates to be sunk", () => {
   g.receiveAttack(5, 4);
   g.receiveAttack(6, 4);
 
-  expect(g.getShip("battleship").sunkStatus()).toEqual(true);
+  expect(g.getShip("battleship").getSunk()).toEqual(true);
 });
 
 test("Expect ship at given co-ordinates to be sunk", () => {

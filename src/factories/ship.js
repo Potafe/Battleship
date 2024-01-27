@@ -19,7 +19,7 @@ const Ship = (name, length) => {
 
   const getHits = () => hits;
 
-  // const sunk = () => isSunk
+  const getSunk = () => isSunk
 
   const hit = () => {
     hits += 1;
@@ -32,6 +32,7 @@ const Ship = (name, length) => {
     hit,
     getName,
     isSunk,
+    getSunk,
     name,
     getLength,
     getHits,
