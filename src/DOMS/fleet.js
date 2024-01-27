@@ -6,6 +6,15 @@ import submarineX from "../assets/images/SubmarineX.svg";
 import Gameloop from "../factories/gameloop";
 
 const fleet = (() => { 
+
+  let startTime = null
+
+  const getCurrentTime = () => {
+    if (startTime === null) {
+      startTime = new Date().getTime()
+    }
+    return (new Date().getTime() - startTime) / 1000
+  }
   
   const loadShipImage = (shipName) => {
     let shipImage  
@@ -38,13 +47,13 @@ const fleet = (() => {
     return shipImage
   }
 
-  const loadShipsOnBoard = (boardElement, info) => {
+  const loadShipsOnBoard = (player, info) => {
 
     const shipName = info.boardElement.slice(0, info.boardElement.length - 1)
     const ship = player.getMap().getShip(shipName)
 
     if (ship.found()) return
-    ship.found()
+    ship.gotFound()
 
     const length = ship.getLength()
     const [height, width] = [`10%`, `${length * 10}%`]
@@ -54,7 +63,11 @@ const fleet = (() => {
 
     if (axis === 'Y') rotation = 'rotate(90deg) translate(0, -100%)'
 
+    const currentTime = getCurrentTime()
+    console.log(currentTime)
+
     const shipDiv = document.createElement('div')
+    shipDiv.classList.add('ship-image-container', 'blue-bleep')
     shipDiv.style.position = 'absolute'
     shipDiv.style.zIndex = '-1'
     shipDiv.style.top = top
@@ -63,8 +76,13 @@ const fleet = (() => {
     shipDiv.style.height = height
     shipDiv.style.transform = rotation
     shipDiv.style.transformOrigin = 'top left'
+    shipDiv.style.maskImage = carrierX
+    shipDiv.style.animationDelay = `${-currentTime}s`
 
     const image = document.createElement('img')
+    image.className =
+      player.isCpu === true ? `${shipName}-cpu` : `${shipName}-player`
+    image.classList.add('placed-ship')
     image.src = loadShipImage(shipName)
     image.style.height = '95%'
     image.style.aspectRatio = `${length}/1`
@@ -75,15 +93,16 @@ const fleet = (() => {
 
   const loadFleet = (board) => {
     
-    const map = Gameloop.state.getPlayer().getMap()
+    const player = Gameloop.state.getPlayer()
+    const map = player.getMap()
     const mapArray = map.getBoard()
     console.log(mapArray)
 
     for (let i = 0; i < mapArray.length; i+=1) {
         for (let j = 0; j < mapArray[0].length; j+=1) {
             if (mapArray[i][j] !== 'x') {
-                loadShipsOnBoard(mapArray[i][j], {
-                    map, board, i, j,
+                loadShipsOnBoard(player, {
+                    map, board, boardElement: mapArray[i][j], i, j,
                 })
             }
         }
