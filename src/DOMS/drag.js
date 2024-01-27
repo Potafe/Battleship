@@ -21,7 +21,7 @@ const drag = (() => {
     }
 
     const dragEnter = () => {
-        const fieldContainer = document.getElementById('field-container')
+        const fieldContainer = document.getElementById('field-container-setup')
 
         fieldContainer.childNodes.forEach((node) => {
             node.addEventListener('dragenter', (e) => {
@@ -79,7 +79,7 @@ const drag = (() => {
 
     
     const dragOver = () => {
-        const fieldContainer = document.getElementById('field-container')
+        const fieldContainer = document.getElementById('field-container-setup')
         
         fieldContainer.childNodes.forEach((node, index) => {
             node.addEventListener('dragover', (e) => {
@@ -90,7 +90,7 @@ const drag = (() => {
     }  
 
     const resetFieldStyling = () => {
-        const fieldContainer = document.getElementById('field-container')
+        const fieldContainer = document.getElementById('field-container-setup')
 
         for (let i = 0; i < fieldQueue.length; i+=1) {
             fieldContainer.children[fieldQueue[i]].className = 'field'
@@ -100,7 +100,7 @@ const drag = (() => {
     }
 
     const dragLeave = () => {
-        const fieldContainer = document.getElementById('field-container')
+        const fieldContainer = document.getElementById('field-container-setup')
 
         fieldContainer.childNodes.forEach((node) => {
             node.addEventListener('dragleave', () => {
@@ -134,7 +134,7 @@ const drag = (() => {
     }
 
     const dragDrop = () => {
-        const fieldContainer = document.getElementById('field-container')
+        const fieldContainer = document.getElementById('field-container-setup')
         
 
         fieldContainer.childNodes.forEach((node, index) => {
@@ -145,7 +145,7 @@ const drag = (() => {
 
                 resetFieldStyling()
                 
-                fleet.loadFleet()
+                fleet.loadFleet(fieldContainer)
     
                 hideIfPlaced(isPlaced, shipOnDrag)
                 
