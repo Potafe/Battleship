@@ -113,7 +113,7 @@ const drag = (() => {
     const hideIfPlaced = (isPlaced, shipOnDrag) => {
         if (!isPlaced) return 
         
-        const battleship = document.querySelector(`[data-ship-name=${shipOnDrag.name}]`)
+        const battleship = document.querySelector(`[data-ship-name=${shipOnDrag}]`)
         battleship.classList.add('hidden')
     }
 
