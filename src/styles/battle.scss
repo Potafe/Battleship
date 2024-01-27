@@ -1,3 +1,4 @@
+@import './typed.scss';
 @import './basics.scss';
 
 .maps-section {
@@ -20,14 +21,14 @@
       order: 1;
       grid-column: 2/3;
     }
-    .letter-container {
+    .numberx-container {
       order: 2;
       grid-column: 2/3;
       display: flex;
       justify-content: space-around;
       margin-bottom: 0.5rem;
     }
-    .number-container {
+    .numbery-container {
       @include flexColumnSpaceAround;
       order: 3;
       grid-column: 1/2;

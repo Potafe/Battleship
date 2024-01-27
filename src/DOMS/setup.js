@@ -1,8 +1,8 @@
-import battleship from "../assets/BattleshipX.svg";
-import carrier from "../assets/CarrierX.svg";
-import cruiser from "../assets/CruiserX.svg";
-import destroyer from "../assets/DestroyerX.svg";
-import submarine from "../assets/SubmarineX.svg";
+import battleship from "../assets/images/BattleshipX.svg";
+import carrier from "../assets/images/CarrierX.svg";
+import cruiser from "../assets/images/CruiserX.svg";
+import destroyer from "../assets/images/DestroyerX.svg";
+import submarine from "../assets/images/SubmarineX.svg";
 import functions from "./functions";
 import Gameloop from "../factories/gameloop";
 

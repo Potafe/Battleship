@@ -1,58 +1,58 @@
 .play-button {
+  @include flexRowCenter;
   position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
   width: 100%;
-  max-width: 350px;
-  height: 5rem;
+  min-width: 0;
+  aspect-ratio: 4/1;
   margin: 0 auto;
-  padding: 0;
   border: none;
   background-color: transparent;
-  -webkit-mask-size: 100%;
-  -webkit-mask: url("/src/assets/BattleshipX.svg") no-repeat 50% 50%;
-  mask: url("/src/assets/BattleshipX.svg") no-repeat 50% 50%;
   cursor: pointer;
+  mask: url('../assets//images/BattleshipX.svg') no-repeat 50% 50%;
+  -webkit-mask: url('../assets/images/BattleshipX.svg') no-repeat 50% 50%;
+  mask-size: 100%;
+  -webkit-mask-size: 100%;
 }
 .play-button:after {
-  content: "";
-  position: absolute;
+  @include pseudoOverlay;
   left: 0;
   right: 0;
   bottom: 0;
-  box-shadow: 0px 0 0 0 white;
-  transition: box-shadow 1s ease;
+  transition: all ease;
+  transition-duration: 0.3s;
 }
-.play-button:hover:after {
-  box-shadow: 0px -15px 50px 1.5px $transparent-low-grey-color;
+.play-button:hover:after,
+.play-button:focus:after {
+  transition-duration: 2s;
+  box-shadow: 0px 20px 15px 22px $transparent-shadow-color;
 }
 .play-button .text-play-button {
   position: absolute;
   left: 50%;
   bottom: 0;
   width: 100%;
-  font-size: 0.95rem;
+  font-size: min(calc(0.5rem + 0.5vw), 0.95rem);
   letter-spacing: 3px;
   text-align: center;
   color: white;
   transform: translate(-50%, -50%);
-  transition: all 0.8s ease;
+  transition: color 0.8s ease;
 }
-.play-button:hover .text-play-button {
+.play-button:hover .text-play-button,
+.play-button:focus .text-play-button {
   color: black;
 }
 .play-button:before {
-  content: "";
-  position: absolute;
+  @include pseudoUnderlay;
   left: 50%;
   top: 50%;
   height: 100%;
   width: 0;
-  background-color: white;
+  background-color: $main-color;
   transform: translate(-50%, -50%);
-  transition: all 0.8s ease;
+  transition: width 0.8s ease;
 }
-.play-button:hover:before {
+.play-button:hover:before,
+.play-button:focus:before {
   width: 100%;
 }

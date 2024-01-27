@@ -1,8 +1,8 @@
-import battleshipX from "../assets/BattleshipX.svg";
-import carrierX from "../assets/CarrierX.svg";
-import cruiserX from "../assets/CruiserX.svg";
-import destroyerX from "../assets/DestroyerX.svg";
-import submarineX from "../assets/SubmarineX.svg";
+import battleshipX from "../assets/images/BattleshipX.svg";
+import carrierX from "../assets/images/CarrierX.svg";
+import cruiserX from "../assets/images/CruiserX.svg";
+import destroyerX from "../assets/images/DestroyerX.svg";
+import submarineX from "../assets/images/SubmarineX.svg";
 import Gameloop from "../factories/gameloop";
 
 const fleet = (() => { 
