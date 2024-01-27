@@ -42,14 +42,12 @@ const start = (() => {
 
   const loadStartCard = () => {
     const card = document.createElement("section");
-    const container = document.createElement("div");
     
     card.className = "start-card";
-    container.className = "content-container";
     
-    card.appendChild(loadTitle(container));
-    card.appendChild(loadForm(container));
-    card.appendChild(loadPlayButton(container));
+    card.appendChild(loadTitle(card));
+    card.appendChild(loadForm(card));
+    card.appendChild(loadPlayButton(card));
 
     return card
   }
