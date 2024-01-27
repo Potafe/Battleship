@@ -1,24 +1,49 @@
+import Typed from "typed.js"
+import friend from '../assets/images/eve.png'
+import enemy from '../assets/images/auto.png'
+
 const component = (() => {
-    function createMessageSection(className) {
-      const messageSection = document.createElement('section')
-      messageSection.classList.add('message', className)
+
+  const images = {friend, enemy}
+
+  const createMessage = (character) => {
+    const messageContainer = document.createElement('div')
+    messageContainer.id = 'message-container'
+    messageContainer.className = 'message-container'
+
+    const text = document.createElement('div')
+    text.id = `message-${character}`
+    text.className = `message-${character}`
+    text.textContent = ''
+
+    messageContainer.appendChild(text)
+    
+    return messageContainer
+  }
+
+  const addTypeWriterMessage = (el, array) => {
+    const typed = new Typed(el, { strings: array, typeSpeed: 15})
+  } 
+
+  const createMessageSection = (classNameArray) => {
+    const messageSection = document.createElement('section')
+    messageSection.className = 'message'
+
+    classNameArray.forEach((el) => messageSection.classList.add(el))
+    const character = classNameArray[1]
+
+    const messageImage = document.createElement('img')
+    messageImage.className = 'message-image'
+    messageImage.src = images[classNameArray[1]]
+    // will add img later
+
+    messageSection.appendChild(messageImage)
+    messageSection.appendChild(createMessage(character))
   
-      const messageImage = document.createElement('img')
-      messageImage.className = 'message-image'
+    return messageSection
+  }
   
-      const messageClass = className === 'setup' ? 'welcome' : 'ready'
-      const text = document.createElement('div')
-      text.id = 'message-text'
-      text.classList.add('message-text', messageClass)
-      text.textContent = ''
-  
-      messageSection.appendChild(messageImage)
-      messageSection.appendChild(text)
-  
-      return messageSection
-    }
-  
-    return { createMessageSection }
+    return { createMessageSection, addTypeWriterMessage }
   })()
   
   export default component

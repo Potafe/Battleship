@@ -5,6 +5,9 @@ import destroyer from "../assets/images/DestroyerX.svg";
 import submarine from "../assets/images/SubmarineX.svg";
 import functions from "./functions";
 import Gameloop from "../factories/gameloop";
+import Battle from './battle';
+import component from "./component";
+import messages from '../assets/messages/messages';
 
 const setup = (() => {
   const loadShipCard = (ship) => {
@@ -88,7 +91,7 @@ const setup = (() => {
   const handleButton = (button, alternateButton) => {
     const map = Gameloop.state.getPlayer().getMap()
 
-    button.is === 'x-button' ? map.setAxisX() : map.setAxisY()
+    button.id === 'x-button' ? map.setAxisX() : map.setAxisY()
 
     button.classList.add('selected')
     alternateButton.classList.remove('selected')
@@ -127,10 +130,27 @@ const setup = (() => {
     return buttonContainer
   }
 
+  function changeMessage() {
+    const fleet = document.getElementById('fleet-setup')
+    const msgText = document.getElementById('message-text')
+    const isReset = msgText.classList.contains('reset')
+    let isEmpty = true
+
+    fleet.childNodes.forEach((node) => {
+      if (node.classList.contains('hidden')) {
+        node.classList.remove('hidden')
+        msgText.classList.add('reset')
+        isEmpty = false
+      }
+    })
+    if (isReset && !isEmpty) msgText.classList.add('take-time')
+  }
+
   function resetFleetSelect() {
     const map = Gameloop.state.getPlayer().getMap()
     const fleet = document.getElementById('fleet-setup')
-
+   
+    changeMessage()
     fleet.childNodes.forEach((node) => (node.classList.remove('hidden')))
     
     map.getFleet().forEach((ship) => ship.resetFound())
@@ -146,17 +166,18 @@ const setup = (() => {
     }
   }
 
-  function resetBackground(node) {
-    node.style.backgroundImage = ''
-    node.style.backgroundSize = ''
-    node.style.backgroundPosition = ''
+  function resetBackground(parent) {
+    const ships = parent.querySelector('.ship-image-container')
+    ships.forEach((ship) => ship.remove())
   }
 
 
-  function doContinue() {}
+  function doContinue() {
+    Battle.loadBattleSection()
+  }
   
   const doReset = (map) => {
-    const fieldContainer = document.getElementById('field-container')
+    const fieldContainer = document.getElementById('field-container-setup')
 
     resetFleetSelect()
     resetArray(map)
@@ -214,7 +235,7 @@ const setup = (() => {
   }
 
   const loadMapFleetSection = () => {
-    const setupContainer = document.createElement("div");
+    const setupContainer = document.createElement("section");
     setupContainer.id = "setup-container";
     setupContainer.className = "setup-container";
 
@@ -228,9 +249,13 @@ const setup = (() => {
     app.classList = ''
     app.classList.add("app", "setup");
 
-
+    
+    app.appendChild(component.createMessageSection(['setup', 'friend']))
     app.appendChild(loadMapFleetSection())
     app.appendChild(loadResetAndContinueSection())
+
+    const message = document.getElementById('message-friend')
+    component.addTypeWriterMessage(message, messages.getWelcomeMessage())
 
     initButtons()
 

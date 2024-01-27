@@ -1,3 +1,5 @@
+import component from './component'
+import messages from '../assets/messages/messages'
 
 const functions = (() => {
   const BOARD_SIZE = 10;
@@ -41,10 +43,10 @@ const functions = (() => {
     return numberContainerY
   }
 
-  const createBoard = () => {
+  const createBoard = (descr) => {
     const board = document.createElement('div');
-    board.className = "field-container";
-    board.id =  "field-container"
+    board.id = `field-container-${descr}`;
+    board.className =  `field-container`;
 
     for (let i = 0; i < BOARD_SIZE; i += 1) {
       for (let j = 0; j < BOARD_SIZE; j += 1) {
@@ -66,7 +68,7 @@ const functions = (() => {
 
     map.appendChild(loadCoordinatesX())
     map.appendChild(loadCoordinatesY())
-    map.appendChild(createBoard())
+    map.appendChild(createBoard(descr))
 
     return map
   }
@@ -90,7 +92,33 @@ const functions = (() => {
 
   const randomTen = () => Math.floor(Math.random() * 5) + 1
 
-  return { deleteContent, createMap, createBoard, getCoordinates, getIndex, nearestTen, randomTen };
+  const create = (type, data) => {
+    if (!type) return new Error('wrong arguments')
+
+    const element = document.createElement(type)
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [key, value] of Object.entries(data)) {
+      element.setAttribute(key, value)
+    }
+
+    return element
+  }
+
+  const renderBattleMessage = (who) => {
+    const message = document.getElementById(`message-${who}`)
+
+    if (who === 'friend') {
+      component.addTypeWriterMessage(message, messages.getBattleMessage())
+    }
+
+    else {
+      component.addTypeWriterMessage(message, messages.getEnemyBattleMessage())
+    }
+
+  } 
+
+  return { deleteContent, createMap, createBoard, getCoordinates, getIndex, nearestTen, randomTen, renderBattleMessage };
 })();
 
 export default functions;
