@@ -20,23 +20,23 @@ const fleet = (() => {
     let shipImage  
 
     switch (shipName) {
-      case "battleshipX":
+      case "battleship":
         shipImage = battleshipX
         break;
 
-      case "carrierX":
+      case "carrier":
         shipImage = carrierX
         break;
 
-      case "cruiserX":
+      case "cruiser":
         shipImage = cruiserX
         break;
 
-      case "destroyerX":
+      case "destroyer":
         shipImage = destroyerX
         break;
 
-      case "submarineX":
+      case "submarine":
         shipImage = submarineX
         break;
 
@@ -67,7 +67,7 @@ const fleet = (() => {
     console.log(currentTime)
 
     const shipDiv = document.createElement('div')
-    shipDiv.classList.add('ship-image-container', 'blue-bleep')
+    shipDiv.classList.add('ship-image-container')
     shipDiv.style.position = 'absolute'
     shipDiv.style.zIndex = '-1'
     shipDiv.style.top = top
