@@ -19,27 +19,22 @@ const Ship = (name, length) => {
 
   const getHits = () => hits;
 
-  const sunkStatus = () => isSunk;
-
-  const sunk = () => {
-    isSunk = true;
-  };
+  // const sunk = () => isSunk
 
   const hit = () => {
     hits += 1;
 
-    if (hits === length) sunk();
+    if (hits === length) isSunk = true;
   };
 
   return {
     length,
     hit,
     getName,
-    sunk,
+    isSunk,
     name,
     getLength,
     getHits,
-    sunkStatus,
     found,
     gotFound,
     resetFound,

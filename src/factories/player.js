@@ -57,8 +57,6 @@ const Player = (name) => {
     const fleet = ['battleship', 'carrier', 'cruiser', 'destroyer', 'submarine']
     const length = [4, 5, 3, 2, 3]
 
-    const gameboard = board.getMap()
-
     while (fleet.length) {
       const axis = randomAxis()
       let placed = false
@@ -67,9 +65,9 @@ const Player = (name) => {
       const col = random()
 
       if (axis === 'X') {
-        placed = gameboard.placeX(Ship(fleet[0], length[0]), row, col)
+        placed = board.placeX(Ship(fleet[0], length[0]), row, col)
       } else {
-        placed = gameboard.placeY(Ship(fleet[0], length[0]), row, col)
+        placed = board.placeY(Ship(fleet[0], length[0]), row, col)
       }
 
       if (placed) {
@@ -77,7 +75,7 @@ const Player = (name) => {
         length.shift()
       }
 
-      console.log(gameboard)
+      console.log(board)
     }
 
   }
