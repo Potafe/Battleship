@@ -1,13 +1,6 @@
 .start-card {
-    padding: min(calc(2rem + 3vw), 5rem) min(calc(1rem + 2vw), 3rem);
-    border: 2px solid transparent;
-    border-radius: 1rem;
-    box-shadow: 0px 0px 30px 1px $transparent-shadow-color;
+    
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    transition: border-color 0.5s;
-    cursor: pointer;
     h1 {
       font-family: 'Big Shoulders Stencil Text', cursive;
       font-size: min(calc(1.75rem + 4vw), 5rem);
@@ -18,8 +11,5 @@
     }
     .play-button {
       margin-top: 1rem;
-    }
-    &:hover {
-      border: 2px solid $transparent-shadow-color;
     }
   }
