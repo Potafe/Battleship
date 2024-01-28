@@ -24,10 +24,12 @@ const Player = (name) => {
 
   const cpuPlay = () => {
     let invalidCoordinate = true;
+    let x
+    let y
 
     while (invalidCoordinate) {
-      const x = random();
-      const y = random();
+      x = random();
+      y = random();
 
       if (isEmpty(x, y)) {
         invalidCoordinate = false;
@@ -35,6 +37,8 @@ const Player = (name) => {
         turns += 1;
       }
     }
+
+    return [x, y]
   };
 
   const play = (x, y) => {
@@ -87,7 +91,8 @@ const Player = (name) => {
     setName,
     board,
     getMap,
-    autoPlace
+    autoPlace,
+    cpuPlay
   };
 };
 

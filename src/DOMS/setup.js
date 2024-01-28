@@ -130,28 +130,22 @@ const setup = (() => {
     return buttonContainer
   }
 
-  function changeMessage() {
+  function resetFleetSelectMenu() {
     const fleet = document.getElementById('fleet-setup')
-    const msgText = document.getElementById('message-text')
-    const isReset = msgText.classList.contains('reset')
-    let isEmpty = true
+    const message = document.getElementById('message-friend')
 
     fleet.childNodes.forEach((node) => {
       if (node.classList.contains('hidden')) {
         node.classList.remove('hidden')
-        msgText.classList.add('reset')
-        isEmpty = false
+        message.classList.add('reset')
       }
     })
-    if (isReset && !isEmpty) msgText.classList.add('take-time')
   }
 
   function resetFleetSelect() {
     const map = Gameloop.state.getPlayer().getMap()
-    const fleet = document.getElementById('fleet-setup')
    
-    changeMessage()
-    fleet.childNodes.forEach((node) => (node.classList.remove('hidden')))
+    resetFleetSelectMenu()
     
     map.getFleet().forEach((ship) => ship.resetFound())
     map.setFleetEmpty()

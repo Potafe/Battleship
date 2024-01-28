@@ -108,36 +108,78 @@ const battle = (() => {
     node.classList.add('miss')
   }
 
+  const playerHits = (info) => {
+    const enemyBoard = document.getElementById('field-container-enemy')
+
+    const map = info.cpu.getMap()
+    const board = map.getBoard()
+
+    map.receiveAttack(info.row, info.col)
+
+    if (info.battleship.isSunk) {
+      const [i, j] = findOrigin(board, board[info.row][info.col])
+      fleet.loadShipsOnBoard(info.cpu, { map, board: enemyBoard, boardElement: board[info.row][info.col], i , j})
+    }
+  }
+
+  const playerPlays = (field) => {
+    const cpu = Gameloop.state.getCPU()
+
+    const index = [...field.parentNode.children].indexOf(field)
+    const [row, col] = functions.getCoordinates(index)
+
+    const boardElement = cpu.getMap().getBoard()[row][col]
+    const shipName = getShipNameFromBoard(boardElement)
+    const battleship = cpu.getMap().getShip(shipName)
+
+    switch (boardElement) {
+      case 'x': 
+        addMiss(field)
+        break
+
+      default: 
+        addHit(field)
+        playerHits({cpu, battleship, row, col})
+    }
+
+    displayPlayerMessage(boardElement, battleship)
+
+  }
+
+  function timeout() {
+    return new Promise((resolve) => setTimeout(resolve, 100))
+  }
+
+  async function cpuPlays() {
+    await timeout()
+
+    const friendBoard = document.getElementById('field-container-friendly')
+    const player = Gameloop.state.getPlayer()
+    const [row, col] = player.cpuPlay()
+
+    const boardElement = player.getMap().getBoard()[row][col]
+    const index = functions.getIndex(row, col) 
+     
+    switch (boardElement) {
+      case 'miss': 
+        addMiss(friendBoard.children[index])
+        player.getMap().getBoard()[row][col] = 'miss'
+        break
+      
+      default: 
+        player.getMap().getBoard()[row][col] = 'hit'
+        addHit(friendBoard.children[index])
+    }
+
+    console.log(player.getMap())
+
+  }
+
   const handleFieldClick = (e) => {
     const { target } = e
     disableField(target)
-
-    const index = [...target.parentNode.children].indexOf(target)
-    const x = parseInt(index / 10, 10)
-    const y = index % 10
-
-    const board = document.getElementById('field-container-enemy')
-    const cpu = Gameloop.state.getCPU()
-    const map = cpu.getMap()
-    const enemyBoard = map.getBoard()
-
-    const boardElement = enemyBoard[x][y]
-    const shipName = getShipNameFromBoard(enemyBoard[x][y])
-    const battleship = map.getShip(shipName)
-    console.log('ENEMY MAP', map)
-    
-    if (boardElement === 'x') addMiss(target)
-    
-    else {
-      battleship.hit()
-
-      const [i, j] = findOrigin(enemyBoard, enemyBoard[x][y])
-      if (battleship.isSunk) {
-        fleet.loadShipsOnBoard(cpu, {map, board, boardElement, i, j})
-      }
-      addHit(target)
-    }
-    displayPlayerMessage(enemyBoard[x][y], battleship)
+    playerPlays(target)
+    cpuPlays()
   }
 
   const initBoardField = () => {

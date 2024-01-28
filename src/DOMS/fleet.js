@@ -49,7 +49,9 @@ const fleet = (() => {
 
   const loadShipsOnBoard = (player, info) => {
 
-    const shipName = info.boardElement.slice(0, info.boardElement.length - 1)
+    const shipName = info.boardElement.slice(0, - 1)
+
+    console.log(shipName)
     const ship = player.getMap().getShip(shipName)
 
     if (ship.found()) return

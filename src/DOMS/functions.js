@@ -81,7 +81,7 @@ const functions = (() => {
     return [x, y]
   }
 
-  const getIndex = (x, y) => x * (BOARD_SIZE - 1) + y
+  const getIndex = (x, y) => x * (BOARD_SIZE) + y
 
   const nearestTen = (num) => {
     while (num % 10 !== 0) {
