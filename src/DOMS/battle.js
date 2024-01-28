@@ -84,13 +84,13 @@ const battle = (() => {
 
     if (boardElement !== 'x') {
       if (ship && !ship.isSunk) {
-        displayMessage(friend, messages.getNewEnemyHitMessage(friend.textContent))
+        displayMessage(friend, messages.getEnemyHitMessage(friend.textContent))
       } 
       else if (ship.isSunk) {
-        displayMessage(friend, messages.getNewEnemySunkMessage(friend.textContent))
+        displayMessage(friend, messages.getEnemySunkMessage(friend.textContent))
       }
       else {
-        displayMessage(friend, messages.getNewPlayerMissMessage(friend.textContent))
+        displayMessage(friend, messages.getPlayerMissMessage(friend.textContent))
       }
     }
 
@@ -146,6 +146,30 @@ const battle = (() => {
 
   }
 
+  const displayEnemyMessage = (boardElement, ship = false) => {
+    const friend = document.getElementById('message-friend')
+    const enemy = document.getElementById('message-enemy')
+
+    if (boardElement !== 'x' && boardElement !== 'miss') {
+      if (ship && !ship.isSunk) {
+        displayMessage(enemy, messages.getPlayerHitMessage(enemy.textContent))
+      }
+
+      else if (ship.isSunk) {
+        displayMessage(enemy, messages.getPlayerSunkMessage(enemy.textContent))
+      }
+
+      else {
+        displayMessage(enemy, messages.getEnemyMissMessage(enemy.textContent))
+      }
+    }
+
+    if (friend.textContent !== '...') {
+      displayMessage(friend, messages.getNoCommentMessage()[0])
+    }
+  }
+
+
   function timeout() {
     return new Promise((resolve) => setTimeout(resolve, 100))
   }
@@ -159,6 +183,8 @@ const battle = (() => {
 
     const boardElement = player.getMap().getBoard()[row][col]
     const index = functions.getIndex(row, col) 
+    const shipName = getShipNameFromBoard(boardElement)
+    const battleship = player.getMap().getShip(shipName)
      
     switch (boardElement) {
       case 'miss': 
@@ -171,6 +197,7 @@ const battle = (() => {
         addHit(friendBoard.children[index])
     }
 
+    displayEnemyMessage(boardElement, battleship)
     console.log(player.getMap())
 
   }

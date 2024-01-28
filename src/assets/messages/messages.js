@@ -47,6 +47,19 @@ const utils = (() => {
       "We're not making much headway, captain. What's the plan?",
     ],
 
+    playerHit: [
+      'Your time is up!',
+      'Hehehe, your luck is running out,',
+      'Brace yourself for the real pain!',
+      "That was just a taste of what's to come.",
+      "You'll be swimming with the fishes soon enough.",
+      "My torpedoes have your number, it's over for you!",
+      "So predictable, you're not even worth the ammunition",
+      'How does it feel to be on the receiving end of my wrath?',
+      "Your luck has run out, and there's nowhere left to hide!",
+      'Looks like I hit a nerve. How about a little retaliation?',
+    ],
+
     playerSunk: [
       "Looks like you'll be swimming home. Heheh.",
       'You fought like a coward and died like a dog.',
@@ -59,6 +72,20 @@ const utils = (() => {
       'You made a grave mistake challenging me. Your defeat was certain.',
       'You should have surrendered while you had the chance. Now look at you.',
     ],
+
+    enemyMiss: [
+      "I'll get you next time.",
+      'My turn to strike again.',
+      'Missed, but not for long.',
+      "You can run, but you can't hide.",
+      "You can't escape my sight forever.",
+      'Your luck is just prolonging the inevitable.',
+      'My torpedoes will find you, no matter where you hide.',
+      "You may have dodged one, but you can't dodge them all.",
+      'That was just a warning shot, the real attack is coming.',
+      "You're playing with fire, and I have a lot of ammunition.",
+    ],
+
     noComment: ['...'],
   }
 
@@ -74,7 +101,7 @@ const utils = (() => {
     return messages.battleStartEnemy
   }
 
-  function getNewEnemyHitMessage(previousMessage) {
+  function getEnemyHitMessage(previousMessage) {
     let newMessage = previousMessage
 
     while (newMessage === previousMessage)
@@ -83,7 +110,7 @@ const utils = (() => {
     return newMessage
   }
 
-  function getNewEnemySunkMessage(previousMessage) {
+  function getEnemySunkMessage(previousMessage) {
     let newMessage = previousMessage
 
     while (newMessage === previousMessage)
@@ -92,7 +119,34 @@ const utils = (() => {
     return newMessage
   }
 
-  function getNewPlayerMissMessage(previousMessage) {
+  function getPlayerMissMessage(previousMessage) {
+    let newMessage = previousMessage
+
+    while (newMessage === previousMessage)
+      newMessage = messages.playerMiss[randomZeroToNine()]
+
+    return newMessage
+  }
+
+  function getPlayerHitMessage(previousMessage) {
+    let newMessage = previousMessage
+
+    while (newMessage === previousMessage)
+      newMessage = messages.playerMiss[randomZeroToNine()]
+
+    return newMessage
+  }
+
+  function getEnemyMissMessage(previousMessage) {
+    let newMessage = previousMessage
+
+    while (newMessage === previousMessage)
+      newMessage = messages.playerMiss[randomZeroToNine()]
+
+    return newMessage
+  }
+
+  function getPlayerSunkMessage(previousMessage) {
     let newMessage = previousMessage
 
     while (newMessage === previousMessage)
@@ -113,10 +167,13 @@ const utils = (() => {
     getWelcomeMessage,
     getBattleMessage,
     getEnemyBattleMessage,
-    getNewEnemyHitMessage,
-    getNewEnemySunkMessage,
-    getNewPlayerMissMessage,
+    getEnemyHitMessage,
+    getEnemySunkMessage,
+    getPlayerMissMessage,
     getNoCommentMessage,
+    getEnemyMissMessage,
+    getPlayerHitMessage,
+    getPlayerSunkMessage
   }
 })()
 
