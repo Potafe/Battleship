@@ -1,75 +1,22 @@
 @import './basics.scss';
 
 .maps-section {
-  @include gridPlaceItemsCenter;
+  display: grid;
+  justify-items: center;
+  row-gap: 0.5rem;
+  column-gap: 1.5rem;
   grid-template-columns: 1fr 1fr;
   max-width: 1200px;
   margin: 0 auto;
   overflow: hidden;
   .board.friendly,
   .board.enemy {
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    max-width: 550px;
-    padding: 1rem;
+    padding: 1.25rem;
     backdrop-filter: blur(10px);
     background-color: rgba(0, 0, 0, 0.5);
     .map-title-container {
       order: 1;
       grid-column: 2/3;
-    }
-    .numberx-container {
-      order: 2;
-      grid-column: 2/3;
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 0.5rem;
-    }
-    .numbery-container {
-      @include flexColumnSpaceAround;
-      order: 3;
-      grid-column: 1/2;
-      margin-right: 0.5rem;
-    }
-    .field-container {
-      position: relative;
-      order: 4;
-      grid-column: 2/3;
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 0.1rem;
-      aspect-ratio: 1/1;
-      background-repeat: no-repeat;
-      .field {
-        @include flexRowCenter;
-        position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        &.no-drop,
-        &.no-drop * {
-          // OVERRIDE DROP CURSOR
-          cursor: no-drop !important;
-          pointer-events: none;
-        }
-        &.hovering {
-          background-color: rgba(255, 255, 255, 0.25);
-        }
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.25);
-        }
-      }
-      .ship-image-container {
-        position: relative;
-        overflow: visible;
-        display: inline-block;
-        .enemy-ship {
-          position: relative;
-          z-index: 1;
-          // filter: invert(17%) sepia(77%) saturate(2834%) hue-rotate(346deg)
-          //   brightness(98%) contrast(95%);
-        }
-      }
     }
   }
 
@@ -78,7 +25,7 @@
     @include flexRowCenter;
     gap: 0.5rem;
     width: 100%;
-    margin: 0 auto 0.5rem auto;
+    border-radius: $main-border-radius;
     padding: 1rem;
     backdrop-filter: blur(10px);
     background-color: rgba(0, 0, 0, 0.5);
@@ -109,7 +56,33 @@
   }
 }
 
+
+
+#field-container-friendly,
 #field-container-enemy {
+  &::after {
+    display: none;
+  }
+}
+
+#field-container-enemy {
+  background: rgb(2, 0, 36);
+  background: radial-gradient(
+    circle,
+    rgba(2, 0, 36, 0) 0%,
+    rgba(243, 166, 64, 0.15449929971988796) 60%,
+    rgba(243, 166, 64, 0.25253851540616246) 85%,
+    rgba(243, 166, 64, 0.3981967787114846) 100%
+  );
+  &::before {
+    filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg)
+      brightness(96%) contrast(98%) !important;
+  }
+  .map-title-container {
+    .map-title {
+      color: $orange-light-color;
+    }
+  }
   .field::before {
     @include pseudoOverlay;
     transform: translate(-600px, -600px) rotate(-315deg);

@@ -122,30 +122,6 @@ const battle = (() => {
     }
   }
 
-  const playerPlays = (field) => {
-    const cpu = Gameloop.state.getCPU()
-
-    const index = [...field.parentNode.children].indexOf(field)
-    const [row, col] = functions.getCoordinates(index)
-
-    const boardElement = cpu.getMap().getBoard()[row][col]
-    const shipName = getShipNameFromBoard(boardElement)
-    const battleship = cpu.getMap().getShip(shipName)
-
-    switch (boardElement) {
-      case 'x': 
-        addMiss(field)
-        break
-
-      default: 
-        addHit(field)
-        playerHits({cpu, battleship, row, col})
-    }
-
-    displayPlayerMessage(boardElement, battleship)
-
-  }
-
   const displayEnemyMessage = (boardElement, ship = false) => {
     const friend = document.getElementById('message-friend')
     const enemy = document.getElementById('message-enemy')
@@ -171,11 +147,21 @@ const battle = (() => {
 
 
   function timeout() {
+    return new Promise((resolve) => setTimeout(resolve, 200))
+  }
+
+  function timeOutShorty() {
     return new Promise((resolve) => setTimeout(resolve, 100))
   }
 
   async function cpuPlays() {
-    await timeout()
+    const enemyMessage = document.querySelector('.message.battle.enemy')
+    const friendMessage = document.querySelector('.message.battle.friend')
+
+    friendMessage.classList.remove('on-turn')
+    enemyMessage.classList.add('on-turn')
+
+    await timeOutShorty()
 
     const friendBoard = document.getElementById('field-container-friendly')
     const player = Gameloop.state.getPlayer()
@@ -200,13 +186,49 @@ const battle = (() => {
     displayEnemyMessage(boardElement, battleship)
     console.log(player.getMap())
 
+    await timeout()
+    enemyMessage.classList.remove('on-turn')
+    friendMessage.classList.add('on-turn')
   }
 
-  const handleFieldClick = (e) => {
+  async function playerPlays(field) {
+    const enemyMessage = document.querySelector('.message.battle.enemy')
+    const friendMessage = document.querySelector('.message.battle.friend')
+
+    enemyMessage.classList.remove('on-turn')
+    friendMessage.classList.add('on-turn')
+
+    await timeOutShorty()
+
+     const cpu = Gameloop.state.getCPU()
+
+    const index = [...field.parentNode.children].indexOf(field)
+    const [row, col] = functions.getCoordinates(index)
+
+    const boardElement = cpu.getMap().getBoard()[row][col]
+    const shipName = getShipNameFromBoard(boardElement)
+    const battleship = cpu.getMap().getShip(shipName)
+
+    switch (boardElement) {
+      case 'x': 
+        addMiss(field)
+        break
+
+      default: 
+        addHit(field)
+        playerHits({cpu, battleship, row, col})
+    }
+
+    displayPlayerMessage(boardElement, battleship)
+    await timeout()
+
+  }
+
+  async function handleFieldClick(e) {
     const { target } = e
     disableField(target)
-    playerPlays(target)
-    cpuPlays()
+    await playerPlays(target)
+    await cpuPlays()
   }
 
   const initBoardField = () => {
