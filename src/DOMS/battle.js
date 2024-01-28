@@ -82,9 +82,11 @@ const battle = (() => {
 
     if (boardElement !== 'x') {
       if (ship && !ship.isSunk) {
+        console.log(ship)
         displayMessage(friend, messages.getEnemyHitMessage(friend.textContent))
       } 
       else if (ship.isSunk) {
+        console.log(ship)
         displayMessage(friend, messages.getEnemySunkMessage(friend.textContent))
       }
       else {
@@ -124,23 +126,23 @@ const battle = (() => {
     const friend = document.getElementById('message-friend')
     const enemy = document.getElementById('message-enemy')
 
+
     if (boardElement !== 'x' && boardElement !== 'miss') {
       if (ship && !ship.isSunk) {
+        console.log(boardElement) 
         displayMessage(enemy, messages.getPlayerHitMessage(enemy.textContent))
-      }
-
+      }   
       else if (ship.isSunk) {
+        console.log(boardElement) 
         displayMessage(enemy, messages.getPlayerSunkMessage(enemy.textContent))
       }
-
-      else {
-        displayMessage(enemy, messages.getEnemyMissMessage(enemy.textContent))
-      }
+    } else {
+      console.log('a')
+      displayMessage(enemy, messages.getEnemyMissMessage(enemy.textContent))
     }
 
-    if (friend.textContent !== '...') {
+    if (friend.textContent !== '...')
       displayMessage(friend, messages.getNoCommentMessage()[0])
-    }
   }
 
 

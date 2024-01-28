@@ -132,7 +132,7 @@ const utils = (() => {
     let newMessage = previousMessage
 
     while (newMessage === previousMessage)
-      newMessage = messages.playerMiss[randomZeroToNine()]
+      newMessage = messages.playerHit[randomZeroToNine()]
 
     return newMessage
   }
@@ -141,7 +141,7 @@ const utils = (() => {
     let newMessage = previousMessage
 
     while (newMessage === previousMessage)
-      newMessage = messages.playerMiss[randomZeroToNine()]
+      newMessage = messages.enemyMiss[randomZeroToNine()]
 
     return newMessage
   }
@@ -150,7 +150,7 @@ const utils = (() => {
     let newMessage = previousMessage
 
     while (newMessage === previousMessage)
-      newMessage = messages.playerMiss[randomZeroToNine()]
+      newMessage = messages.playerSunk[randomZeroToNine()]
 
     return newMessage
   }
@@ -178,3 +178,4 @@ const utils = (() => {
 })()
 
 export default utils
+
