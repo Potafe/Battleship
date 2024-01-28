@@ -161,7 +161,7 @@ const setup = (() => {
   }
 
   function resetBackground(parent) {
-    const ships = parent.querySelector('.ship-image-container')
+    const ships = parent.querySelectorAll('.ship-image-container')
     ships.forEach((ship) => ship.remove())
   }
 
