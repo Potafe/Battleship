@@ -18,7 +18,7 @@ const Player = (name) => {
 
   const getMap = () => board
   
-  const isEmpty = (x, y) => board.board[x][y] === "x";
+  const isEmpty = (x, y) => board.board[x][y] !== "miss" && board.board[x][y] !== "hit";
 
   const random = () => Math.floor(Math.random() * (9 + 1));
 

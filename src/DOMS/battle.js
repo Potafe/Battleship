@@ -80,8 +80,6 @@ const battle = (() => {
     const friend = document.getElementById('message-friend')
     const enemy = document.getElementById('message-enemy')
 
-    console.log(ship, ship.isSunk)
-
     if (boardElement !== 'x') {
       if (ship && !ship.isSunk) {
         displayMessage(friend, messages.getEnemyHitMessage(friend.textContent))
@@ -147,11 +145,11 @@ const battle = (() => {
 
 
   function timeout() {
-    return new Promise((resolve) => setTimeout(resolve, 200))
+    return new Promise((resolve) => {setTimeout(resolve, 200)})
   }
 
   function timeOutShorty() {
-    return new Promise((resolve) => setTimeout(resolve, 100))
+    return new Promise((resolve) => {setTimeout(resolve, 100)})
   }
 
   async function cpuPlays() {
@@ -168,9 +166,10 @@ const battle = (() => {
     const [row, col] = player.cpuPlay()
 
     const boardElement = player.getMap().getBoard()[row][col]
-    const index = functions.getIndex(row, col) 
     const shipName = getShipNameFromBoard(boardElement)
     const battleship = player.getMap().getShip(shipName)
+    const index = functions.getIndex(row, col) 
+
      
     switch (boardElement) {
       case 'miss': 
@@ -200,7 +199,7 @@ const battle = (() => {
 
     await timeOutShorty()
 
-     const cpu = Gameloop.state.getCPU()
+    const cpu = Gameloop.state.getCPU()
 
     const index = [...field.parentNode.children].indexOf(field)
     const [row, col] = functions.getCoordinates(index)

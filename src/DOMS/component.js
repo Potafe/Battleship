@@ -22,7 +22,7 @@ const component = (() => {
   }
 
   const addTypeWriterMessage = (el, array) => {
-    const typed = new Typed(el, { strings: array, typeSpeed: 15})
+    const typed = new Typed(el, { strings: array, typeSpeed: 10})
   } 
 
   const createMessageSection = (classNameArray) => {

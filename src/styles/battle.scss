@@ -71,6 +71,112 @@
   }
 }
 
+#field-container-friendly {
+  &::before {
+    filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg)
+      brightness(96%) contrast(98%) !important;
+  }
+  .map-title-container {
+    .map-title {
+      color: $orange-light-color;
+    }
+  }
+  .field::before {
+    @include pseudoOverlay;
+    transform: translate(-600px, -600px) rotate(-315deg);
+    height: 30%;
+    width: 200px;
+    border: 3px solid #fefefe;
+    border-radius: 1rem;
+    background-color: #fefefe;
+    opacity: 1;
+    transition: all 0.15s ease-in;
+  }
+
+  .field::after {
+    @include pseudoOverlay;
+    @include fullSize;
+    border-radius: 100%;
+    opacity: 0;
+  }
+
+  .field.hit::before {
+    animation: shot 0.5s 0.2s 1;
+    -webkit-animation: shot 0.5s 0.2s 1;
+    animation-fill-mode: forwards;
+  }
+
+  .field.hit::after {
+    background-color: rgba(255, 0, 0, 0.5);
+    animation: ripple 0.5s 0.2s 1;
+    -webkit-animation: ripple 0.5s 0.2s 1;
+    animation-delay: 0.5s;
+    -webkit-animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+  }
+
+  .field.miss::before {
+    animation: miss 0.5s 0.2s 1;
+    -webkit-animation: miss 0.5s 0.2s 1;
+    animation-fill-mode: forwards;
+  }
+
+  .field.miss::after {
+    background-color: rgba(0, 153, 255, 0.5);
+    animation: ripple 0.5s 0.2s 1;
+    -webkit-animation: ripple 0.5s 0.2s 1;
+    animation-delay: 0.5s;
+    -webkit-animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes shot {
+    75% {
+      width: 80px;
+      background-color: #fefefe;
+      border-color: #fefefe;
+    }
+
+    100% {
+      width: 30%;
+      background-color: rgba(255, 0, 0, 0.85);
+      border-color: rgba(255, 0, 0, 0.5);
+      transform: translateX(0px) rotate(-315deg);
+    }
+  }
+
+  @keyframes miss {
+    75% {
+      width: 80px;
+      background-color: #fefefe;
+      border-color: #fefefe;
+    }
+
+    100% {
+      width: 30%;
+      background-color: rgba(0, 153, 255, 0.85);
+      border-color: rgba(0, 153, 255, 0.5);
+      transform: translateX(0px) rotate(-315deg);
+    }
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.25);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+}
+
+
 #field-container-enemy {
   background: rgb(2, 0, 36);
   background: radial-gradient(
