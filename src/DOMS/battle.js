@@ -244,7 +244,7 @@ const battle = (() => {
 
     const app = document.getElementById("app");
     app.classList = ''
-    app.classList.add('app', 'setup')
+    app.classList.add('app', 'battle')
 
     app.appendChild(loadMapSection())
     renderPlayerShips()

@@ -1,5 +1,11 @@
 @import './basics.scss';
 
+.app.battle {
+  width: auto;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .maps-section {
   display: grid;
   justify-items: center;
