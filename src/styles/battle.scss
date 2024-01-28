@@ -1,4 +1,4 @@
-@import './basics.scss';
+@import "./basics.scss";
 
 .app.battle {
   width: auto;
@@ -43,7 +43,7 @@
       text-align: start;
       .message-text {
         display: inline;
-        color: rgb(19, 221, 19)
+        color: rgb(19, 221, 19);
       }
       .typed-cursor {
         position: relative;
@@ -61,8 +61,6 @@
     }
   }
 }
-
-
 
 #field-container-friendly,
 #field-container-enemy {
@@ -175,7 +173,6 @@
     }
   }
 }
-
 
 #field-container-enemy {
   background: rgb(2, 0, 36);

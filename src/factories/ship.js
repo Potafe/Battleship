@@ -12,14 +12,14 @@ const Ship = (name, length) => {
   };
 
   const resetFound = () => {
-    isFound = false
-  }
-    
+    isFound = false;
+  };
+
   const found = () => isFound;
 
   const getHits = () => hits;
 
-  const getSunk = () => isSunk
+  const getSunk = () => isSunk;
 
   const hit = () => {
     hits += 1;

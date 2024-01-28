@@ -1,4 +1,4 @@
-@import './basics.scss';
+@import "./basics.scss";
 
 .header.setup {
   margin-bottom: 2rem;
@@ -22,7 +22,7 @@
     font-size: $font-size-normal-responsive;
     .message-text {
       display: inline;
-      color: rgb(19, 221, 19)
+      color: rgb(19, 221, 19);
     }
     .typed-cursor {
       position: relative;

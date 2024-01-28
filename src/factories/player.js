@@ -16,16 +16,17 @@ const Player = (name) => {
 
   const getTurn = () => turns;
 
-  const getMap = () => board
-  
-  const isEmpty = (x, y) => board.board[x][y] !== "miss" && board.board[x][y] !== "hit";
+  const getMap = () => board;
+
+  const isEmpty = (x, y) =>
+    board.board[x][y] !== "miss" && board.board[x][y] !== "hit";
 
   const random = () => Math.floor(Math.random() * (9 + 1));
 
   const cpuPlay = () => {
     let invalidCoordinate = true;
-    let x
-    let y
+    let x;
+    let y;
 
     while (invalidCoordinate) {
       x = random();
@@ -38,7 +39,7 @@ const Player = (name) => {
       }
     }
 
-    return [x, y]
+    return [x, y];
   };
 
   const play = (x, y) => {
@@ -53,36 +54,41 @@ const Player = (name) => {
   };
 
   const randomAxis = () => {
-    const axis = ['X', 'Y']
-    return axis[Math.floor(Math.random() * (1 + 1))]
-  }
+    const axis = ["X", "Y"];
+    return axis[Math.floor(Math.random() * (1 + 1))];
+  };
 
   const autoPlace = () => {
-    const fleet = ['battleship', 'carrier', 'cruiser', 'destroyer', 'submarine']
-    const length = [4, 5, 3, 2, 3]
+    const fleet = [
+      "battleship",
+      "carrier",
+      "cruiser",
+      "destroyer",
+      "submarine",
+    ];
+    const length = [4, 5, 3, 2, 3];
 
     while (fleet.length) {
-      const axis = randomAxis()
-      let placed = false
+      const axis = randomAxis();
+      let placed = false;
 
-      const row = random()
-      const col = random()
+      const row = random();
+      const col = random();
 
-      if (axis === 'X') {
-        placed = board.placeX(Ship(fleet[0], length[0]), row, col)
+      if (axis === "X") {
+        placed = board.placeX(Ship(fleet[0], length[0]), row, col);
       } else {
-        placed = board.placeY(Ship(fleet[0], length[0]), row, col)
+        placed = board.placeY(Ship(fleet[0], length[0]), row, col);
       }
 
       if (placed) {
-        fleet.shift()
-        length.shift()
+        fleet.shift();
+        length.shift();
       }
 
-      console.log(board)
+      console.log(board);
     }
-
-  }
+  };
 
   return {
     play,
@@ -92,7 +98,7 @@ const Player = (name) => {
     board,
     getMap,
     autoPlace,
-    cpuPlay
+    cpuPlay,
   };
 };
 

@@ -32,25 +32,25 @@
 }
 
 @mixin pseudoOverlay {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 1;
 }
 
 @mixin pseudoOverlayPlus {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 2;
 }
 
 @mixin pseudoOverlayPlusPlus {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 3;
 }
 
 @mixin pseudoUnderlay {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
 }
@@ -61,13 +61,13 @@
 }
 
 @mixin flexRowBottom {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-  
-  @mixin flexRowStartCenter {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+@mixin flexRowStartCenter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

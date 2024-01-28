@@ -14,7 +14,9 @@
     font-family: inherit;
     color: white;
     background: rgba(0, 0, 0, 1);
-    transition: all 0.05s linear, visibility 0.01s linear;
+    transition:
+      all 0.05s linear,
+      visibility 0.01s linear;
     filter: brightness(0.6);
     &:focus {
       filter: brightness(1);
@@ -64,7 +66,9 @@
 .ship-card:after {
   @include pseudoUnderlay;
   background: rgba(0, 0, 0, 1);
-  transition: all 0.2s linear, visibility 0.01s linear;
+  transition:
+    all 0.2s linear,
+    visibility 0.01s linear;
 }
 
 .ship-card:before {

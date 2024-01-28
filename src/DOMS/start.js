@@ -4,7 +4,7 @@ const start = (() => {
 
     title.textContent = "BATTLESHIP";
 
-    return title
+    return title;
   };
 
   const loadForm = () => {
@@ -23,7 +23,7 @@ const start = (() => {
     form.appendChild(formInput);
     form.appendChild(inputBorder);
 
-    return form
+    return form;
   };
 
   const loadPlayButton = () => {
@@ -37,25 +37,25 @@ const start = (() => {
 
     button.appendChild(buttonText);
 
-    return button
+    return button;
   };
 
   const loadStartCard = () => {
     const card = document.createElement("section");
-    
+
     card.className = "start-card";
-    
+
     card.appendChild(loadTitle(card));
     card.appendChild(loadForm(card));
     card.appendChild(loadPlayButton(card));
 
-    return card
-  }
+    return card;
+  };
 
   const loadCard = () => {
     const app = document.getElementById("app");
 
-    app.appendChild(loadStartCard())
+    app.appendChild(loadStartCard());
   };
 
   return { loadCard };

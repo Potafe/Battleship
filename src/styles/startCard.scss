@@ -1,15 +1,14 @@
 .start-card {
-    
-    text-align: center;
-    h1 {
-      font-family: 'Big Shoulders Stencil Text', cursive;
-      font-size: min(calc(1.75rem + 4vw), 5rem);
-      letter-spacing: 0.1rem;
-    }
-    .name-form {
-      margin-top: 2.75rem;
-    }
-    .play-button {
-      margin-top: 1rem;
-    }
+  text-align: center;
+  h1 {
+    font-family: "Big Shoulders Stencil Text", cursive;
+    font-size: min(calc(1.75rem + 4vw), 5rem);
+    letter-spacing: 0.1rem;
   }
+  .name-form {
+    margin-top: 2.75rem;
+  }
+  .play-button {
+    margin-top: 1rem;
+  }
+}

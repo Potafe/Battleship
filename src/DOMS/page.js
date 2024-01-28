@@ -4,12 +4,11 @@ import setup from "./setup";
 import drag from "./drag";
 
 const page = (() => {
-  
   const loadSetup = () => {
-    functions.deleteContent()
-    setup.loadSetupMaterial()
-    drag.draggableFields()
-  }
+    functions.deleteContent();
+    setup.loadSetupMaterial();
+    drag.draggableFields();
+  };
 
   const playButton = () => {
     const button = document.getElementById("play-button");
@@ -20,7 +19,6 @@ const page = (() => {
     start.loadCard();
     playButton();
   };
-
 
   return { loadContent };
 })();
